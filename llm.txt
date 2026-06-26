@@ -36,8 +36,8 @@ NON-NEGOTIABLE: minors' data → local + code-names to AI + parental consent.
   grades 1–12 + college/AP. Math & physics ONLY. ~1,000 students taught.
 - Differentiator (PROTECT): "stay as long as you need," no clock-watching. Automate
   paperwork, NOT the drop-in flexibility.
-- Address: 6850 Regional St, Suite 200, Dublin, CA 94568. [VERIFY w/ Taha — one page
-  says "Pleasanton".]
+- Address: 6850 Regional St, Suite 200, Dublin, CA 94568 (CONFIRMED — new office). The
+  old "Pleasanton" copy still on the Wix site is stale; flag Taha to correct it.
 - Team: Taha Rizvi (founder/lead, UC Berkeley math+physics — the operator) + Doug
   Potter. Hiring teachers.
 - Funnel today (manual): phone/text (925) 400-8430 · hi@otspaces.com · thin Wix form
@@ -304,7 +304,7 @@ P4 (month 3): Marketing loop + a written runbook so Taha fully owns it.
 ================================================================================
 ## 11. OPEN QUESTIONS TO CONFIRM WITH TAHA
 ================================================================================
-[ ] Address: Dublin or Pleasanton?
+[x] Address: CONFIRMED Dublin (new office), 6850 Regional St, Suite 200, Dublin CA 94568. (Stale "Pleasanton" copy on Wix → fix.)
 [ ] Existing Google account/Workspace? (decides $0 vs ~$7/mo)
 [ ] First workflow: parent notes (recommended) or lead auto-reply?
 [ ] OK to name the method + show a sample report on the public site?
