@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap" rel="stylesheet">
 <style>
   :root{
     --ivory:#FAF9F5; --cream:#F1ECE3; --cream-2:#EDE7DC; --card:#FFFFFF;
@@ -19,6 +20,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
+  .ms{font-family:'Material Symbols Rounded';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;direction:ltr;-webkit-font-feature-settings:'liga';font-feature-settings:'liga';-webkit-font-smoothing:antialiased;vertical-align:middle}
   body{font-family:var(--body);background:var(--ivory);color:var(--ink);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
   .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
   a{color:inherit;text-decoration:none}
@@ -92,7 +94,8 @@
 
   .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
   .feature{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;box-shadow:var(--shadow)}
-  .feature .ic{width:46px;height:46px;border-radius:12px;background:var(--coral-soft);color:var(--coral-deep);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:22px;font-weight:600;margin-bottom:18px}
+  .feature .ic{width:48px;height:48px;border-radius:13px;background:var(--coral-soft);color:var(--coral-deep);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .feature .ic .ms{font-size:26px}
   .feature h3{font-size:22px;margin-bottom:9px}
   .feature p{font-size:15.5px;color:var(--ink-soft)}
   @media(max-width:860px){.grid-3{grid-template-columns:1fr}}
@@ -165,6 +168,54 @@
   footer .col p,footer .col a{display:block;margin-bottom:6px}
   .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;font-size:12.5px;color:var(--ink-mute)}
 
+  /* FAQ — minimalist native accordion */
+  .faq{max-width:780px;margin:0 auto}
+  .faq details{border-bottom:1px solid var(--line);padding:6px 0}
+  .faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px;padding:20px 4px;font-family:var(--display);font-size:19px;font-weight:600;color:var(--ink)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .ms{margin-left:auto;color:var(--coral-deep);transition:transform .25s ease;font-size:26px}
+  .faq details[open] summary .ms{transform:rotate(180deg)}
+  .faq summary .q-ic{color:var(--coral-deep);font-size:22px}
+  .faq .a{padding:0 4px 22px 40px;font-size:15.5px;color:var(--ink-soft);max-width:62ch}
+  .faq .a a{color:var(--coral-deep);text-decoration:underline;text-underline-offset:2px}
+
+  /* INQUIRY FORM */
+  .book{background:var(--cream)}
+  .book .wrap{display:grid;grid-template-columns:.82fr 1.18fr;gap:48px;align-items:start}
+  .book .pitch h2{font-size:clamp(28px,3.4vw,42px);margin-bottom:14px}
+  .book .pitch h2 em{font-style:italic;color:var(--coral-deep)}
+  .book .pitch p{color:var(--ink-soft);font-size:17px;margin-bottom:24px;max-width:30em}
+  .book .contacts{display:flex;flex-direction:column;gap:14px;font-size:15.5px}
+  .book .contacts a,.book .contacts span{display:flex;align-items:center;gap:11px;color:var(--ink)}
+  .book .contacts .ms{color:var(--coral-deep);font-size:22px}
+  .book .contacts a:hover{color:var(--coral-deep)}
+  .form-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 30px 28px;box-shadow:var(--shadow)}
+  .form-card .frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .field{margin-bottom:16px;display:flex;flex-direction:column;gap:7px}
+  .field label{font-size:13.5px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:5px}
+  .field label .req{color:var(--coral-deep)}
+  .field input,.field select,.field textarea{font-family:var(--body);font-size:15px;color:var(--ink);background:var(--ivory);border:1px solid var(--line);border-radius:10px;padding:12px 13px;width:100%;transition:border-color .15s,box-shadow .15s}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--coral);box-shadow:0 0 0 3px var(--coral-soft)}
+  .field textarea{resize:vertical;min-height:84px}
+  .field .err{font-size:12.5px;color:var(--coral-deep);display:none}
+  .field.invalid input,.field.invalid select{border-color:var(--coral-deep)}
+  .field.invalid .err{display:block}
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{position:relative}
+  .chip input{position:absolute;opacity:0;width:0;height:0}
+  .chip span{display:inline-flex;align-items:center;gap:6px;font-size:14px;border:1px solid var(--line);background:var(--ivory);border-radius:999px;padding:8px 14px;cursor:pointer;transition:all .15s;color:var(--ink-soft)}
+  .chip input:checked+span{background:var(--coral-soft);border-color:var(--coral);color:var(--coral-deep);font-weight:600}
+  .chip span .ms{font-size:17px}
+  .form-card .submit{width:100%;justify-content:center;margin-top:6px;font-size:16px;padding:14px}
+  .form-note{font-size:12.5px;color:var(--ink-mute);margin-top:14px;display:flex;align-items:flex-start;gap:7px;line-height:1.5}
+  .form-note .ms{font-size:17px;color:var(--sage);margin-top:1px}
+  .form-success{display:none;text-align:center;padding:20px 10px}
+  .form-success.show{display:block}
+  .form-success .ms{font-size:56px;color:var(--sage);margin-bottom:10px}
+  .form-success h3{font-size:24px;margin-bottom:8px}
+  .form-success p{color:var(--ink-soft);font-size:15.5px;max-width:32ch;margin:0 auto}
+  @media(max-width:860px){.book .wrap{grid-template-columns:1fr;gap:30px}.form-card .frow{grid-template-columns:1fr}}
+
   /* safe scroll reveal: visible by default; JS only enhances */
   .rev{opacity:1}
   .js .rev{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
@@ -183,9 +234,9 @@
       <a href="#why">Why us</a>
       <a href="#method">The Method</a>
       <a href="#programs">Programs</a>
-      <a href="#trust">For parents</a>
+      <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn btn-primary" href="#book">Book a free consult</a>
+    <a class="btn btn-primary" href="#book"><span class="ms" style="font-size:19px">edit_calendar</span> Book a free consult</a>
   </div>
 </header>
 
@@ -242,9 +293,9 @@
         <p>Most tutoring sells you a 50-minute slot and a stopwatch. We sell understanding — and we don't stop until it clicks.</p>
       </div>
       <div class="grid-3">
-        <div class="feature rev"><div class="ic">∞</div><h3>Unlimited time</h3><p>Drop in and stay as long as you need. No watching the clock, no "we're out of time" right when it's getting clear.</p></div>
-        <div class="feature rev"><div class="ic">∿</div><h3>Real understanding</h3><p>We build the <em>why</em> behind the math and physics — reasoning it out together — not memorizing formulas you'll forget by the test.</p></div>
-        <div class="feature rev"><div class="ic">◎</div><h3>One-on-one, in person</h3><p>A real teacher, in the room, focused entirely on your student — patient with every question, at any level, from pre-algebra to differential equations.</p></div>
+        <div class="feature rev"><div class="ic"><span class="ms">all_inclusive</span></div><h3>Unlimited time</h3><p>Drop in and stay as long as you need. No watching the clock, no "we're out of time" right when it's getting clear.</p></div>
+        <div class="feature rev"><div class="ic"><span class="ms">lightbulb</span></div><h3>Real understanding</h3><p>We build the <em>why</em> behind the math and physics — reasoning it out together — not memorizing formulas you'll forget by the test.</p></div>
+        <div class="feature rev"><div class="ic"><span class="ms">groups</span></div><h3>One-on-one, in person</h3><p>A real teacher, in the room, focused entirely on your student — patient with every question, at any level, from pre-algebra to differential equations.</p></div>
       </div>
     </div>
   </section>
@@ -258,10 +309,10 @@
         <p>A simple, repeatable path — and parents see the progress at every step.</p>
       </div>
       <div class="flow rev">
-        <div class="fstep"><div class="n">01</div><h4>Diagnose</h4><p>A short session to find exactly where your student is — and where the gaps really are.</p></div>
-        <div class="fstep"><div class="n">02</div><h4>Plan</h4><p>A clear plan built around their goal, from AP exam to "finally get it."</p></div>
-        <div class="fstep"><div class="n">03</div><h4>Think it through</h4><p>Unlimited, guided practice. We ask the questions that build independent thinkers.</p></div>
-        <div class="fstep"><div class="n">04</div><h4>Report</h4><p>A short, honest progress note to you — so you always know how it's going.</p></div>
+        <div class="fstep"><div class="n">01 · <span class="ms" style="font-size:17px;color:var(--coral-deep)">search</span></div><h4>Diagnose</h4><p>A short session to find exactly where your student is — and where the gaps really are.</p></div>
+        <div class="fstep"><div class="n">02 · <span class="ms" style="font-size:17px;color:var(--coral-deep)">route</span></div><h4>Plan</h4><p>A clear plan built around their goal, from AP exam to "finally get it."</p></div>
+        <div class="fstep"><div class="n">03 · <span class="ms" style="font-size:17px;color:var(--coral-deep)">psychology</span></div><h4>Think it through</h4><p>Unlimited, guided practice. We ask the questions that build independent thinkers.</p></div>
+        <div class="fstep"><div class="n">04 · <span class="ms" style="font-size:17px;color:var(--coral-deep)">mail</span></div><h4>Report</h4><p>A short, honest progress note to you — so you always know how it's going.</p></div>
       </div>
 
       <div class="report rev">
@@ -355,13 +406,125 @@
     </div>
   </section>
 
-  <!-- CTA -->
-  <section id="book" class="cta-band">
-    <div class="wrap rev">
-      <h2>Come think with us.</h2>
-      <p>Book a free consult and we'll find exactly where your student is — and build the plan to get them where they want to be.</p>
-      <a class="btn btn-white" href="tel:+19254008430">Book a free consult</a>
-      <div class="ph">Call or text <b>(925) 400-8430</b> · hi@otspaces.com</div>
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head rev" style="margin-left:auto;margin-right:auto;text-align:center">
+        <div class="kick">Questions parents ask</div>
+        <h2>The things you're wondering.</h2>
+      </div>
+      <div class="faq rev">
+        <details open>
+          <summary><span class="ms q-ic">all_inclusive</span> How does "unlimited" tutoring actually work?</summary>
+          <div class="a">You book a drop-in session and stay as long as your student needs that day — there's no 50-minute timer and no "we're out of time" right when it's clicking. Some students come for an hour, some stay through a tough problem set. Understanding sets the pace, not a stopwatch.</div>
+        </details>
+        <details>
+          <summary><span class="ms q-ic">functions</span> What grades and subjects do you cover?</summary>
+          <div class="a">Math and physics only — and we go deep in both. Grades 1–12 plus college and AP: from elementary math and pre-algebra through Calculus III, Linear Algebra, Differential Equations, Statistics, and high-school, AP, and college Physics.</div>
+        </details>
+        <details>
+          <summary><span class="ms q-ic">payments</span> How much does it cost?</summary>
+          <div class="a">Pricing depends on whether you want unlimited drop-in tutoring or a term-based class, and how often your student comes in. The simplest way is a free consult — we'll find exactly where your student is and walk you through the options with no pressure. <a href="#book">Start with the form below.</a></div>
+        </details>
+        <details>
+          <summary><span class="ms q-ic">diversity_2</span> Do you support students with learning differences or autism?</summary>
+          <div class="a">Yes. Students who learn differently are genuinely welcome here — the no-clock, one-on-one format is often exactly what helps. Tell us what works best for your child in the form and we'll make sure their teacher knows before the first session.</div>
+        </details>
+        <details>
+          <summary><span class="ms q-ic">verified_user</span> You mention AI — is my child's information safe?</summary>
+          <div class="a">The teaching is always done by a real teacher, in the room. We use AI only behind the scenes to help draft your progress notes and handle scheduling, and it works with <b>code-names</b> — your child's full name is never shared with any AI tool. Records stay in our own private accounts, each family only sees their own child's reports, and nothing reaches you until a real teacher has reviewed it.</div>
+        </details>
+        <details>
+          <summary><span class="ms q-ic">location_on</span> Are you in-person, and where?</summary>
+          <div class="a">In-person only — that's the whole point. We're at <b>6850 Regional St, Suite 200, Dublin, CA 94568</b>, founded and taught by UC Berkeley math &amp; physics grads.</div>
+        </details>
+        <details>
+          <summary><span class="ms q-ic">rocket_launch</span> How do we get started?</summary>
+          <div class="a">Fill out the short form below, or call or text <a href="tel:+19254008430">(925) 400-8430</a>. We'll set up a free consult, find where your student is, and build a plan from there.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- INQUIRY FORM -->
+  <section id="book" class="book">
+    <div class="wrap">
+      <div class="pitch rev">
+        <div class="kick" style="font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-deep);margin-bottom:14px">Book a free consult</div>
+        <h2>Come <em>think</em> with us.</h2>
+        <p>Tell us a little about your student and we'll find exactly where they are — then build the plan to get them where they want to be. No pressure, no cost.</p>
+        <div class="contacts">
+          <a href="tel:+19254008430"><span class="ms">call</span> (925) 400-8430 <span style="color:var(--ink-mute)">· call or text</span></a>
+          <a href="mailto:hi@otspaces.com"><span class="ms">mail</span> hi@otspaces.com</a>
+          <span><span class="ms">location_on</span> 6850 Regional St, Suite 200, Dublin, CA</span>
+          <span><span class="ms">schedule</span> We reply within one business day</span>
+        </div>
+      </div>
+
+      <div class="rev">
+        <form class="form-card" id="inquiry" action="REPLACE_WITH_FORMSPREE_ENDPOINT" method="POST" novalidate>
+          <div class="frow">
+            <div class="field" data-required>
+              <label>Parent / guardian name <span class="req">*</span></label>
+              <input type="text" name="parent_name" autocomplete="name" placeholder="Your name">
+              <span class="err">Please add your name.</span>
+            </div>
+            <div class="field" data-required data-type="email">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" name="email" autocomplete="email" placeholder="you@email.com">
+              <span class="err">Please add a valid email.</span>
+            </div>
+          </div>
+          <div class="frow">
+            <div class="field">
+              <label>Phone <span style="color:var(--ink-mute);font-weight:400">(optional)</span></label>
+              <input type="tel" name="phone" autocomplete="tel" placeholder="(925) 000-0000">
+            </div>
+            <div class="field" data-required>
+              <label>Student first name <span class="req">*</span></label>
+              <input type="text" name="student_first" placeholder="First name only">
+              <span class="err">Please add a first name.</span>
+            </div>
+          </div>
+          <div class="field" data-required>
+            <label>Grade level <span class="req">*</span></label>
+            <select name="grade">
+              <option value="" selected disabled>Select a grade…</option>
+              <option>Grades 1–5 (Elementary)</option>
+              <option>Grades 6–8 (Middle school)</option>
+              <option>Grades 9–12 (High school)</option>
+              <option>AP course</option>
+              <option>College</option>
+            </select>
+            <span class="err">Please choose a grade level.</span>
+          </div>
+          <div class="field">
+            <label>Subject(s)</label>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="subjects" value="Math"><span><span class="ms">calculate</span> Math</span></label>
+              <label class="chip"><input type="checkbox" name="subjects" value="Physics"><span><span class="ms">science</span> Physics</span></label>
+              <label class="chip"><input type="checkbox" name="subjects" value="AP / College"><span><span class="ms">school</span> AP / College</span></label>
+              <label class="chip"><input type="checkbox" name="subjects" value="Not sure yet"><span><span class="ms">help</span> Not sure yet</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label>What's going on? <span style="color:var(--ink-mute);font-weight:400">(optional)</span></label>
+            <textarea name="goal" placeholder="e.g. AP Calc exam in the spring, lost confidence in physics, wants to get ahead over summer…"></textarea>
+          </div>
+          <div class="field">
+            <label>Best days / times <span style="color:var(--ink-mute);font-weight:400">(optional)</span></label>
+            <input type="text" name="availability" placeholder="e.g. weekday afternoons, Saturday mornings">
+          </div>
+          <button type="submit" class="btn btn-primary submit"><span class="ms" style="font-size:19px">send</span> Request my free consult</button>
+          <div class="form-note"><span class="ms">lock</span> We only use this to contact you about tutoring. Your child's full name isn't required — first name is plenty.</div>
+        </form>
+
+        <div class="form-success" id="success">
+          <span class="ms">check_circle</span>
+          <h3>Thanks — we've got it.</h3>
+          <p>A teacher will reach out within one business day to set up your free consult. Talk soon!</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -373,8 +536,8 @@
       <div class="brand"><span class="dot" style="display:inline-block;vertical-align:middle"></span> Open Thinking Space</div>
       <p>In-person math &amp; physics tutoring where students stay as long as it takes to understand.</p>
     </div>
-    <div class="col"><h6>Visit</h6><p>6850 Regional St, Suite 200<br>Dublin, CA 94568</p></div>
-    <div class="col"><h6>Contact</h6><a href="tel:+19254008430">(925) 400-8430</a><a href="mailto:hi@otspaces.com">hi@otspaces.com</a></div>
+    <div class="col"><h6>Visit</h6><p><span class="ms" style="font-size:16px;color:var(--coral-deep);vertical-align:-2px">location_on</span> 6850 Regional St, Suite 200<br>Dublin, CA 94568</p></div>
+    <div class="col"><h6>Contact</h6><a href="tel:+19254008430"><span class="ms" style="font-size:16px;color:var(--coral-deep);vertical-align:-2px">call</span> (925) 400-8430</a><a href="mailto:hi@otspaces.com"><span class="ms" style="font-size:16px;color:var(--coral-deep);vertical-align:-2px">mail</span> hi@otspaces.com</a></div>
     <div class="col"><h6>Programs</h6><a href="#programs">Unlimited tutoring</a><a href="#programs">Classes</a><a href="#method">The Method</a></div>
   </div>
   <div class="wrap fine">Design concept by <a href="https://tutor.qbitloop.com" style="color:var(--coral-deep)">QbitLoop</a> for Open Thinking Space · June 2026. Testimonials &amp; some details are placeholders for demonstration.</div>
@@ -386,6 +549,44 @@
   document.querySelectorAll('.rev').forEach(el=>io.observe(el));
   // failsafe: if observer never fires, reveal everything after 1.2s
   setTimeout(()=>document.querySelectorAll('.rev:not(.in)').forEach(el=>el.classList.add('in')),1200);
+
+  /* ---- Inquiry form: validation + submit ----
+     To go live: replace action="REPLACE_WITH_FORMSPREE_ENDPOINT" with a real
+     Formspree endpoint (https://formspree.io/f/xxxxxxx) created on OT Spaces' own
+     account. Submissions then arrive by email and can be exported to the roster
+     sheet. Until then the form validates and shows the success state locally. */
+  (function(){
+    var form=document.getElementById('inquiry'); if(!form) return;
+    var success=document.getElementById('success');
+    function validate(){
+      var ok=true;
+      form.querySelectorAll('.field[data-required]').forEach(function(f){
+        var c=f.querySelector('input,select'), v=(c.value||'').trim(), bad=!v;
+        if(!bad && f.dataset.type==='email'){ bad=!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+        f.classList.toggle('invalid',bad); if(bad) ok=false;
+      });
+      return ok;
+    }
+    form.querySelectorAll('.field[data-required] input,.field[data-required] select').forEach(function(c){
+      c.addEventListener('input',function(){ c.closest('.field').classList.remove('invalid'); });
+    });
+    function showSuccess(){
+      form.style.display='none'; success.classList.add('show');
+      success.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      if(!validate()){ form.querySelector('.field.invalid input,.field.invalid select').focus(); return; }
+      var endpoint=form.getAttribute('action');
+      if(endpoint && endpoint.indexOf('REPLACE_')===-1){
+        var btn=form.querySelector('.submit'); btn.disabled=true; btn.style.opacity=.7;
+        fetch(endpoint,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+          .then(showSuccess).catch(showSuccess);
+      } else {
+        showSuccess(); // demo mode — no endpoint wired yet
+      }
+    });
+  })();
 </script>
 </body>
 </html>
