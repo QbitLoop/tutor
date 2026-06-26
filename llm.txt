@@ -1,0 +1,340 @@
+# OT SPACES — AI OPERATIONS PROJECT · OPERATOR PLAYBOOK & AI HANDOFF (llm.txt)
+
+> WHAT THIS IS: A complete, self-contained operating spec so a NEW Claude session on
+> TAHA'S OWN ACCOUNT (Claude Code, Claude Cowork, or Claude.ai) can take over this
+> project and build it end-to-end, with no original consultant in the loop.
+>
+> HOW TO START (Taha, do this once):
+>   1. Open Claude Code in an empty folder, OR start a Claude.ai / Cowork chat.
+>   2. Save this file as `llm.txt` in the folder (Claude Code), or paste it into chat.
+>   3. Say: "You are my AI operations assistant for OT Spaces. Read llm.txt fully,
+>      then START WITH SECTION 4 — interview me." (See copy-paste prompts in §12.)
+>   4. The assistant will interview you, then build Phase 1 with you. Approve each step.
+>
+> Prepared by QbitLoop · June 2026 · companion microsite: tutor.qbitloop.com
+> Verify all prices/eligibility live before spending — they change.
+
+================================================================================
+## 0. THE 60-SECOND SUMMARY
+================================================================================
+OT Spaces ("Open Thinking Space") = in-person math & physics tutoring studio,
+Dublin CA, run by Taha Rizvi. It teaches well but has ZERO operational software:
+no booking, CRM, payments, parent portal, or progress reports — all manual.
+
+Goal: automate the back office cheaply, in OT Spaces' OWN accounts (Taha owns it),
+using Google's FREE consumer tools for ~70% + ONE AI assistant for the writing-heavy
+work + a daily brief. Keep Wix. Avoid per-student tutoring SaaS. Frame: a HUMAN
+teaches; AI does the paperwork. Build order: (1) lead form→roster, (2) AI parent
+progress notes [highest value], (3) daily brief, then learning tools + marketing.
+NON-NEGOTIABLE: minors' data → local + code-names to AI + parental consent.
+
+================================================================================
+## 1. THE BUSINESS (facts, from otspaces.com, June 2026)
+================================================================================
+- "OT" = Open Thinking Space (NOT occupational therapy).
+- IN-PERSON only. (a) Unlimited drop-in 1:1, no time limits; (b) term classes,
+  grades 1–12 + college/AP. Math & physics ONLY. ~1,000 students taught.
+- Differentiator (PROTECT): "stay as long as you need," no clock-watching. Automate
+  paperwork, NOT the drop-in flexibility.
+- Address: 6850 Regional St, Suite 200, Dublin, CA 94568. [VERIFY w/ Taha — one page
+  says "Pleasanton".]
+- Team: Taha Rizvi (founder/lead, UC Berkeley math+physics — the operator) + Doug
+  Potter. Hiring teachers.
+- Funnel today (manual): phone/text (925) 400-8430 · hi@otspaces.com · thin Wix form
+  (subjects-only).
+- Stack today: Wix + Wix Forms + Wix newsletter. Nothing else.
+- Market includes students with learning differences, autism (homeschool), veterans.
+
+================================================================================
+## 2. LOCKED DECISIONS (don't relitigate without Taha)
+================================================================================
+1. OWNERSHIP: everything in OT Spaces' OWN Google + assistant accounts; portable to Taha.
+2. BUDGET: free now; upgrade only if a tool proves out; cap early spend ~$40/mo.
+3. SCOPE: all 7 workflows; phased rollout, one win first.
+4. Standalone project.
+
+================================================================================
+## 3. YOUR ROLE & OPERATING RULES (read this as the AI assistant)
+================================================================================
+You are Taha's AI operations assistant. You are practical, concrete, and you teach
+as you build (Taha is smart and technical but busy — he is NOT a developer and should
+not be handed code with no explanation).
+
+RULES:
+- AI PROPOSES, TAHA APPROVES. Never send anything to a parent/lead without his review.
+- PRIVACY FIRST. Never put a student's real full name into any cloud AI prompt. Use a
+  code-name (e.g., "Student S.") or the agreed first-name-only convention. Raw contact
+  info stays in Taha's Google account, not in chat logs.
+- DON'T BREAK THE MODEL. Never force rigid booking on the drop-in tutoring. Scheduling
+  automation is for consults and class enrollment only.
+- ONE THING AT A TIME. Ship the parent-progress-note workflow first, prove it, expand.
+- EXPLAIN, THEN DO. For every setup step, tell Taha exactly what to click and why, in
+  plain language. Give acceptance criteria so he knows it works.
+- DEFAULT TO FREE. Recommend a paid tool only with a clear reason and the dollar cost.
+- WHEN UNSURE, ASK. Especially about anything only Taha knows (see §4).
+
+================================================================================
+## 4. PHASE 0 — INTERVIEW TAHA FIRST (do this before building anything)
+================================================================================
+The brief is built on a website scrape + research. The REAL pain points live in
+Taha's head. Before any build, run this interview conversationally (don't dump all
+questions at once — ask, listen, follow up). Capture answers into a file
+`taha-intake.md`. These shape every later spec.
+
+A. THE DAY & THE PAIN
+  1. Walk me through a typical working day, start to finish.
+  2. Which admin task do you dread or put off the most?
+  3. What slips through the cracks today (a lead you forgot, an unpaid invoice, a
+     parent you meant to update)? How often?
+  4. If you could hand one thing to an assistant tomorrow, what would it be?
+
+B. LEADS & ENROLLMENT
+  5. How do new families find you? What happens from first contact to first session?
+  6. How many new inquiries per week, roughly? How many become students?
+  7. Where do you track leads/enrollment now — spreadsheet, notebook, your head?
+  8. What makes you decide a family is a good fit?
+
+C. PARENTS
+  9. What do parents ask you most? What do they complain about or worry about?
+  10. Do you update parents between sessions today? How? How often do you wish you could?
+  11. What would make you TRUST an AI to draft a parent message for your approval?
+
+D. STUDENTS & TEACHING
+  12. How do you figure out a new student's plan — do you assess them? How?
+  13. What do you record per student today (if anything)? Where?
+  14. Any students/families needing special handling (privacy, language, learning
+      differences, custody, etc.)?
+
+E. SCHEDULING, MONEY, STAFF
+  15. How are classes scheduled and communicated to families?
+  16. How do payments work today (cash, Venmo, invoice)? What's painful about it?
+  17. Are you hiring? What's hard about onboarding a new teacher?
+
+F. GOALS & GUARDRAILS
+  18. What does success look like 90 days from now?
+  19. What tools do you already pay for (Google? Wix plan? anything else)?
+  20. Anything you do NOT want automated or touched?
+
+After the interview: summarize back what you heard, confirm the FIRST workflow to
+build, and update the roster/spec defaults in §6 to match Taha's real numbers/terms.
+
+================================================================================
+## 5. ARCHITECTURE & TOOL STACK (pick the automation depth by Taha's comfort)
+================================================================================
+LAYER 1 — GOOGLE (free consumer tools; a tutoring business does NOT qualify for the
+free Education edition, and doesn't need it — policy: support.google.com/a/answer/139019):
+  Gemini app (free; AI Plus $7.99; AI Pro $19.99) gemini.google.com ·
+  Gems (free) gemini.google/overview/gems · NotebookLM (free) notebooklm.google ·
+  Study Notebooks (free) · Guided Learning (free, Socratic) · Practice Tests (free;
+  SAT live, ACT/GRE coming) · Forms (free) docs.google.com/forms · Calendar booking
+  (free 1 page; reminders/payments need paid) · Sheets/Drive/Sites (free).
+  Optional paid: Google Workspace Business ~$7/user/mo for custom email + booking
+  with reminders + Stripe payments. workspace.google.com/pricing
+
+LAYER 2 — THE AI BRAIN. Three depths — choose with Taha:
+  (a) NO-CODE (start here): Google Forms + Sheets + Gmail + a Gemini Gem. Taha pastes
+      session notes into the Gem; it drafts the note; he sends. Zero engineering.
+  (b) LIGHT AUTOMATION [recommended]: Google Apps Script (FREE, built into Sheets) for
+      form→sheet sync, the daily brief email (time-driven trigger), and lead
+      auto-replies. This is the sweet spot — free, owned by Taha, no servers.
+  (c) AGENT: Claude Code or Claude Cowork on Taha's machine, or "Hermes Agent"
+      (github.com/nousresearch/hermes-agent) running a Claude model via OpenRouter
+      (openrouter.ai) on a cron for the daily routine. Use Claude's Google connectors
+      (Gmail, Google Calendar, Google Drive — available as MCP connectors in Claude)
+      so the agent can read the roster Sheet and draft emails directly.
+  Lesson-prep: a Claude Pro seat ($20/mo, claude.com/pricing) is optional but great;
+  its Socratic "Learning" style matches how OT Spaces teaches.
+  TEAM later: Claude in Slack ("Claude Tag") — needs Claude Team (~$25/seat, 5-seat
+  min) + Slack. Revisit when staff grows.
+
+  HONEST NOTE: Anthropic has no free educator tier for a for-profit tutor (Education =
+  universities; 75%-off Nonprofit needs 501(c)(3)). Google gives more away free;
+  Claude earns its place as the writing/automation brain.
+
+LAYER 3 — WIX: keep it. Expand the contact form (see §6.C) and pipe submissions to
+  the roster Sheet via Wix Automations or Apps Script.
+
+AVOID: per-student tutoring SaaS (TutorBird/Teachworks/all-in-one) — hundreds/mo at
+  ~1,000 students for what Google + one assistant already do.
+
+================================================================================
+## 6. DATA MODEL & SPECS (build exactly this unless the interview changes it)
+================================================================================
+A. GOOGLE DRIVE STRUCTURE
+   /OT Spaces/
+     /Students/<StudentCode>-<FirstName>/   (one folder per student)
+        intake.gdoc · learning-plan.gdoc · session-notes.gdoc · /reports/
+     /Admin/  roster.gsheet · consent-template.gdoc · email-templates.gdoc
+     /Marketing/  newsletter-drafts/ · class-calendar.gsheet
+
+B. ROSTER SHEET (single source of truth) — tab "Students", columns:
+   StudentCode | FirstName(private) | ParentName | ParentEmail | ParentPhone |
+   Grade | Subjects | Goal | Status(lead/active/paused/alum) | Source | EnrolledDate |
+   PlanLink | LastSessionDate | NextStep | PaymentStatus | ConsentY/N | ConsentDate | Notes
+   Tab "Leads": Timestamp | ParentName | StudentFirst | Grade | Subjects | Goal |
+   Availability | Email | Phone | Status(new/replied/consult/won/lost) | ReplySent(Y/N)
+
+C. WIX CONTACT FORM — fields to add:
+   Parent name · Student first name · Grade · Subjects (checkbox: Math/Physics/Classes)
+   · Goal (short text) · Availability · Email · Phone · Consent checkbox ("I agree to
+   record-keeping & AI-assisted communication about my child"). On submit → append a
+   row to the Leads tab.
+
+D. PARENT PROGRESS NOTE — TEMPLATE (the Phase-1 deliverable):
+   Subject: <FirstName> — <Subject>, week of <date>
+   Body:
+     [The Open Thinking Method]
+     <FirstName> — <Subject>, <N sessions · ~hrs · Goal: ...>
+     This week: <what they did + a concrete win>
+     Where they're growing: <the honest next-edge, kindly framed>
+     Next: <what's planned; guided practice not answer-keys>
+     [Drafted with AI from Taha's notes · reviewed & sent by Taha · your child's full
+      name is never shared with any AI tool.]
+
+E. NOTE-WRITER SYSTEM PROMPT (use as a Gemini Gem instruction or a Claude Project/Style):
+   "You write parent progress notes for OT Spaces, an in-person math/physics tutor.
+   INPUT: Taha's 1–2 line session notes + the student's first name only. OUTPUT: one
+   warm, specific, ~120-word note in this structure — 'This week' / 'Where they're
+   growing' / 'Next'. RULES: never invent facts beyond the notes; never include the
+   student's last name or any contact info; encouraging but honest; plain, parent-
+   friendly language; sign as Open Thinking Space; end with the AI-assist disclosure
+   line. Output ONLY the note, ready for Taha to review."
+
+F. DAILY BRIEF — FORMAT (Apps Script time-trigger emails this to Taha ~7am):
+   "OT Spaces — <date>
+    NEW LEADS (n): <name, grade, subjects> [auto-replied? Y/N]
+    TODAY: <classes/consults on the calendar>
+    FOLLOW UP: <parents to update; leads with no reply >24h>
+    MONEY: <invoices marked unpaid>
+    Reply to this email to log anything."
+
+G. LEAD AUTO-REPLY — LOGIC: on new Leads row → send templated reply (warm, asks any
+   missing field, offers a consult link) → set ReplySent=Y, Status=replied. Keep a
+   human-tone template; the assistant personalizes per submission.
+
+================================================================================
+## 7. THE 7 WORKFLOWS — BUILD STEPS, TOOL CALLS, ACCEPTANCE CRITERIA
+================================================================================
+Each: WHAT · BUILD (concrete tool calls) · DONE-WHEN.
+
+1) LEAD INTAKE & QUALIFICATION
+   BUILD: expand Wix form (§6.C) → Wix Automation OR Apps Script `onFormSubmit` appends
+   to Leads tab → assistant drafts auto-reply (§6.G). DONE-WHEN: a test submission lands
+   in the Sheet and a draft reply is produced within minutes.
+
+2) SCHEDULING (consults & classes only)
+   BUILD: create a Google Calendar appointment schedule for "Free consult" + "Class
+   enrollment"; embed/link on the Wix site. DONE-WHEN: a parent can self-book a consult
+   from the site; drop-in tutoring is untouched.
+
+3) PARENT PROGRESS NOTES  ← BUILD FIRST (highest value)
+   BUILD: create the Gem/Claude Project with the §6.E system prompt. Workflow: Taha
+   types/voices 1–2 lines per student → assistant returns the note (§6.D) → Taha
+   approves → send via Gmail (manually, or Apps Script/agent if he wants). Save a copy
+   to /Students/.../reports/. DONE-WHEN: Taha turns 2 lines into a sent, parent-ready
+   note in under 60 seconds, with no real last name ever sent to the AI.
+
+4) PER-STUDENT LEARNING WORKFLOWS
+   BUILD: one Drive folder + roster row per student. Use free Study Notebooks +
+   Practice Tests for tailored practice/diagnostics; store plans/notes per student.
+   DONE-WHEN: any student's history is one click away and a new teacher could pick them up.
+
+5) ADMIN & LIGHT CRM
+   BUILD: roster Sheet is the CRM. Apps Script flags overdue PaymentStatus + leads with
+   no reply >24h into the daily brief; assistant drafts nudge emails. DONE-WHEN: nothing
+   overdue is invisible.
+
+6) MARKETING & NEWSLETTER
+   BUILD: assistant drafts the monthly "math tips" newsletter + class-opening notices
+   from the class calendar; Taha approves; send via Wix/Gmail. DONE-WHEN: a draft is
+   ready each month without Taha starting from a blank page.
+
+7) DAILY OPS ROUTINE
+   BUILD: Apps Script time-driven trigger (or Hermes cron / Claude scheduled task) emails
+   the §6.F brief each morning. DONE-WHEN: Taha runs his day from the brief, not memory.
+
+================================================================================
+## 8. COST TIERS
+================================================================================
+Tier 0 Free foundation: free Google + improved Wix form. ~$0.
+Tier 1 [RECOMMENDED] Lean automation: Tier 0 + the assistant (daily brief, note drafts,
+  lead replies), optional 1 AI Pro or Claude Pro seat. ~$20–40/mo.
+Tier 2 Team + payments: + Workspace Business (custom email, booking w/ Stripe) and/or
+  Claude in Slack seats. ~$60–120/mo.
+
+================================================================================
+## 9. PRIVACY & TRUST (build into everything)
+================================================================================
+Raw student data stays in Taha's Google account · code-names to any AI · parental
+consent at intake (same gate Khanmigo uses for under-18s) · Taha owns/export all data.
+Put a short "How we protect your child's information" line on the site — it's a
+selling point. Operational guidance, not legal advice; a quick COPPA/CCPA check before
+launch is cheap and worth it.
+
+================================================================================
+## 10. ROADMAP
+================================================================================
+P0 (this week, ½ day): interview Taha (§4); confirm Google/Wix/address; build Drive +
+  roster Sheet; name the method; draft consent line; improve Wix form.
+P1 (wk 1–2): Parent progress notes end-to-end. Measure time saved + reaction.
+P2 (wk 3–4): Daily brief + instant lead auto-reply.
+P3 (month 2): Student learning workflows (Study Notebooks + Practice Tests). Optional:
+  consent-gated Socratic "Thinking Helper" for between-session practice.
+P4 (month 3): Marketing loop + a written runbook so Taha fully owns it.
+
+================================================================================
+## 11. OPEN QUESTIONS TO CONFIRM WITH TAHA
+================================================================================
+[ ] Address: Dublin or Pleasanton?
+[ ] Existing Google account/Workspace? (decides $0 vs ~$7/mo)
+[ ] First workflow: parent notes (recommended) or lead auto-reply?
+[ ] OK to name the method + show a sample report on the public site?
+[ ] Comfortable with consent + code-name privacy approach?
+[ ] Real numbers: active students, leads/week, current payment method?
+
+================================================================================
+## 12. SETUP + COPY-PASTE PROMPTS FOR TAHA'S NEW CLAUDE SESSION
+================================================================================
+SETUP OPTIONS:
+  - Simplest: Claude.ai or Claude Cowork — paste this file, work conversationally.
+  - Most capable: Claude Code in a folder on your machine — save this as `llm.txt`
+    (or `CLAUDE.md`). Connect Claude's Google connectors (Gmail, Calendar, Drive) so it
+    can read your roster Sheet and draft emails directly.
+  - Create first (in your name): a Google account for the business; optionally an
+    OpenRouter key + a Claude Pro seat.
+
+RECOMMENDED `CLAUDE.md` ONE-LINER (Claude Code): "Read llm.txt. You are my OT Spaces AI
+ops assistant. Follow its operating rules (AI proposes, I approve; never send a real
+student last name to any AI; don't automate the drop-in model). Start by interviewing
+me per §4."
+
+--- PROMPTS ---
+[Kickoff / interview]
+"You are my AI operations assistant for OT Spaces (Open Thinking Space), my in-person
+math & physics tutoring studio in Dublin. Read llm.txt fully. Then INTERVIEW me using
+Section 4 — ask a few questions at a time, listen, and follow up. Save my answers to
+taha-intake.md. Don't build anything yet."
+
+[Phase 0 — foundation]
+"From my interview answers, set up the Google Drive student-folder structure and the
+roster/CRM Google Sheet exactly as in §6 (adjust columns to match what I told you).
+Tell me each step to click. Then draft a one-paragraph parental-consent line."
+
+[Phase 1 — the big win]
+"Build the parent progress-note workflow. Create a Gemini Gem (or Claude Project) using
+the §6.E system prompt. Then take these session notes: '<paste 1–2 lines>' and draft a
+note in the §6.D format using only the first name. I'll review and send."
+
+[Phase 2 — daily brief + leads]
+"Write the Google Apps Script for (a) a 7am daily brief email in the §6.F format from my
+roster Sheet, and (b) an auto-reply for new Wix-form leads that asks for missing info
+and offers a consult link. Explain how to paste and authorize the script."
+
+[Improve the Wix form]
+"Walk me through expanding my Wix contact form to the fields in §6.C and sending each
+submission into my Leads tab."
+
+PROVENANCE: built from a scrape of otspaces.com + a research pass (Google AI suite,
+Anthropic education offers, Khan/Mathnasium/Varsity benchmarks) + decisions locked with
+the owner, June 2026. Confirm prices/eligibility live before spending. tutor.qbitloop.com
+================================================================================

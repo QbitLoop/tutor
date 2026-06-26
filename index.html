@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OT Spaces — AI Operations Blueprint</title>
+<meta name="description" content="An FDE consulting analysis for Open Thinking Space: which AI tools to use, what each does for the day-to-day, and what it costs.">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #FFF8F2; --surface: #FFFFFF; --surface-alt: #F8F4EF; --border: #E8E0D8;
+    --text-primary: #1A1612; --text-secondary: #6B6058; --text-muted: #9A8F85;
+    --accent: #0D7680; --accent-dark: #0A5A62; --accent-light: #E3F0F1;
+    --red: #990F3D; --red-light: #FBEAF0;
+    --green: #4C7A34; --green-light: #EDF4E6;
+    --gold: #C47D1A; --gold-light: #FDF4E7;
+    --blue: #2A5DB0; --blue-light: #EAF0FA;
+    --heading: 'Lora', Georgia, serif; --body: 'Inter', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--body); background: var(--bg); color: var(--text-primary); font-size: 15px; line-height: 1.65; }
+
+  .site-header { background: #0A0A0A; color: white; padding: 38px 48px 34px; border-bottom: 3px solid var(--accent); }
+  .site-header .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .site-header h1 { font-family: var(--heading); font-size: 34px; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
+  .site-header .subtitle { font-size: 14px; color: #AAAAAA; font-weight: 300; max-width: 720px; }
+  .site-header .meta { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+  .site-header .meta-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #888; }
+  .site-header .meta-item strong { color: #DDD; font-weight: 500; }
+  .site-header .meta-item .material-icons { font-size: 15px; color: var(--accent); }
+
+  .layout { display: grid; grid-template-columns: 264px 1fr; min-height: calc(100vh - 140px); }
+  .sidebar { background: #0F0F0F; position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 20px 0; border-right: 1px solid #222; }
+  .sidebar-title { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #555; padding: 14px 20px 8px; }
+  .nav-item { display: flex; align-items: center; gap: 9px; padding: 8px 18px; font-size: 12.5px; color: #8d8d8d; text-decoration: none; border-radius: 4px; margin: 1px 6px; transition: all 0.15s; cursor: pointer; border: none; background: none; width: calc(100% - 12px); text-align: left; }
+  .nav-item:hover { background: #1A1A1A; color: #EEE; }
+  .nav-item.active { background: #0E2528; color: var(--accent); font-weight: 500; }
+  .nav-item .num { display: inline-block; width: 22px; height: 18px; background: #222; border-radius: 3px; font-size: 10px; font-weight: 600; text-align: center; line-height: 18px; color: #777; flex-shrink: 0; }
+  .nav-item.active .num { background: var(--accent); color: #000; }
+  .sidebar-foot { padding: 16px 20px; font-size: 11px; color: #555; border-top: 1px solid #222; margin-top: 8px; line-height: 1.6; }
+  .sidebar-foot a { color: #777; }
+
+  .main { overflow-y: auto; }
+  .panel { display: none; padding: 40px 52px 72px; max-width: 1000px; }
+  .panel.active { display: block; }
+  .panel-head { margin-bottom: 30px; padding-bottom: 22px; border-bottom: 2px solid var(--border); }
+  .badge { display: inline-block; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 11px; border-radius: 3px; margin-bottom: 12px; }
+  .badge.claret { background: var(--red); } .badge.gold { background: var(--gold); } .badge.blue { background: var(--blue); }
+  .panel-head h2 { font-family: var(--heading); font-size: 29px; font-weight: 700; line-height: 1.22; margin-bottom: 10px; }
+  .panel-head .lede { font-size: 15px; color: var(--text-secondary); max-width: 770px; }
+
+  .section { margin-bottom: 34px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  h3.blk { font-family: var(--heading); font-size: 19px; font-weight: 600; margin: 26px 0 10px; }
+  p.body { font-size: 14.5px; line-height: 1.7; margin-bottom: 12px; }
+  p.body.sec { color: var(--text-secondary); }
+  ul.body, ol.body { margin: 0 0 14px 20px; font-size: 14px; line-height: 1.7; color: var(--text-secondary); }
+  ul.body li, ol.body li { margin-bottom: 5px; }
+
+  .concept-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; font-size: 14.5px; line-height: 1.7; }
+  .callout { border-radius: 8px; padding: 18px 22px; font-size: 14px; line-height: 1.68; margin-bottom: 16px; }
+  .callout .lab { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 6px; }
+  .callout .lab .material-icons { font-size: 15px; }
+  .c-teal { background: var(--accent-light); border: 1px solid #B6D8DB; } .c-teal .lab { color: var(--accent-dark); }
+  .c-gold { background: var(--gold-light); border: 1px solid #E8C882; } .c-gold .lab { color: var(--gold); }
+  .c-green { background: var(--green-light); border: 1px solid #BFD8A8; } .c-green .lab { color: var(--green); }
+  .c-claret { background: var(--red-light); border: 1px solid #EBC2D2; } .c-claret .lab { color: var(--red); }
+  .c-blue { background: var(--blue-light); border: 1px solid #BFD0EE; } .c-blue .lab { color: var(--blue); }
+
+  .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; background: var(--surface); }
+  thead tr { background: var(--surface-alt); }
+  th { padding: 11px 16px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+  td { padding: 11px 16px; border-bottom: 1px solid #F0EAE3; vertical-align: top; line-height: 1.5; }
+  tr:last-child td { border-bottom: none; } tr:hover td { background: #FAFAF8; }
+  .tag-free { color: var(--green); font-weight: 600; } .tag-paid { color: var(--gold); font-weight: 600; } .tag-no { color: var(--red); font-weight: 600; }
+
+  .numbers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+  .number-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 15px 17px; }
+  .number-card .num { font-family: var(--mono); font-size: 21px; font-weight: 500; color: var(--accent); line-height: 1.2; margin-bottom: 4px; }
+  .number-card .num-label { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+
+  .tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin-bottom: 16px; }
+  .tool-card .th { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 6px; }
+  .tool-card .tname { font-family: var(--heading); font-size: 18px; font-weight: 700; }
+  .tool-card .tone { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; }
+  .tool-card .trow { display: grid; grid-template-columns: 130px 1fr; gap: 10px; font-size: 13.5px; padding: 8px 0; border-top: 1px dashed var(--border); }
+  .tool-card .trow .k { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); padding-top: 2px; }
+  .tool-card .trow .v { line-height: 1.6; }
+
+  .pill { display: inline-block; background: var(--accent-light); color: var(--accent-dark); font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 20px; margin: 2px; letter-spacing: 0.3px; }
+  .pill-claret { background: var(--red-light); color: var(--red); } .pill-gold { background: var(--gold-light); color: var(--gold); }
+  .pill-green { background: var(--green-light); color: var(--green); } .pill-blue { background: var(--blue-light); color: var(--blue); } .pill-gray { background: #EFEAE4; color: var(--text-secondary); }
+  .verdict { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
+  .v-start { background: var(--green-light); color: var(--green); } .v-later { background: var(--gold-light); color: var(--gold); } .v-avoid { background: var(--red-light); color: var(--red); }
+
+  /* Process flow */
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .flow-step { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 18px; position: relative; }
+  .flow-step .fn { font-family: var(--mono); font-size: 11px; color: var(--accent); font-weight: 600; letter-spacing: 1px; }
+  .flow-step .ft { font-family: var(--heading); font-size: 16px; font-weight: 600; margin: 4px 0 6px; }
+  .flow-step .fd { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+  .flow-step:not(:last-child)::after { content: 'east'; font-family: 'Material Icons'; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 18px; z-index: 2; }
+
+  /* Steps timeline */
+  .steps { display: flex; flex-direction: column; }
+  .step { display: grid; grid-template-columns: 40px 1fr; gap: 16px; padding-bottom: 22px; position: relative; }
+  .step:not(:last-child)::before { content: ''; position: absolute; left: 19px; top: 32px; bottom: 0; width: 2px; background: var(--border); }
+  .step .dot { width: 38px; height: 38px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 600; font-size: 13px; z-index: 1; }
+  .step.phase0 .dot { background: var(--text-muted); }
+  .step .sc h4 { font-family: var(--heading); font-size: 17px; margin-bottom: 3px; }
+  .step .sc .when { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 8px; }
+  .step .sc p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 6px; }
+
+  /* Sample report mockup */
+  .report-mock { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 18px rgba(0,0,0,0.05); max-width: 560px; }
+  .report-mock .rm-bar { background: var(--surface-alt); padding: 10px 18px; font-size: 12px; color: var(--text-secondary); border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
+  .report-mock .rm-bar .material-icons { font-size: 15px; color: var(--accent); }
+  .report-mock .rm-body { padding: 20px 22px; font-size: 13.5px; line-height: 1.65; }
+  .report-mock .rm-body h5 { font-family: var(--heading); font-size: 16px; margin-bottom: 4px; }
+  .report-mock .rm-meta { font-size: 11.5px; color: var(--text-muted); margin-bottom: 12px; }
+  .report-mock .rm-body p { margin-bottom: 9px; }
+  .report-mock .rm-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent-dark); background: var(--accent-light); padding: 2px 8px; border-radius: 4px; }
+  .rm-cap { font-size: 11.5px; color: var(--text-muted); font-style: italic; margin-top: 8px; }
+
+  .overview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-top: 20px; }
+  .ov-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; cursor: pointer; transition: all 0.15s; }
+  .ov-card:hover { border-color: var(--accent); box-shadow: 0 2px 14px rgba(13,118,128,0.12); transform: translateY(-1px); }
+  .ov-card .ov-ic { font-size: 22px; color: var(--accent); margin-bottom: 8px; }
+  .ov-card .ov-t { font-family: var(--heading); font-size: 16px; font-weight: 600; margin-bottom: 5px; }
+  .ov-card .ov-d { font-size: 12.5px; color: var(--text-secondary); line-height: 1.55; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .footnote { font-size: 12px; color: var(--text-muted); font-style: italic; margin-top: 8px; }
+  .material-icons { vertical-align: middle; }
+  a.inline { color: var(--accent-dark); }
+
+  /* ── LINKS (open in new tab) ── */
+  a.lk { color: var(--accent-dark); text-decoration: none; border-bottom: 1px solid rgba(13,118,128,0.3); transition: border-color .15s, color .15s; font-weight: 500; }
+  a.lk:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  a.lk .material-icons { font-size: 13px; opacity: 0; margin-left: 1px; transition: opacity .15s; }
+  a.lk:hover .material-icons { opacity: .7; }
+  a.lk-name { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--text-muted); transition: border-color .15s, color .15s; }
+  a.lk-name:hover { color: var(--accent-dark); border-bottom-color: var(--accent); }
+
+  /* ── DOWNLOAD BUTTON ── */
+  a.dl-btn { display: inline-flex; align-items: center; gap: 9px; background: var(--accent); color: #fff; font-size: 13.5px; font-weight: 600; padding: 11px 18px; border-radius: 8px; text-decoration: none; transition: all .15s; border: 1px solid var(--accent); }
+  a.dl-btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(13,118,128,0.25); }
+  a.dl-btn .material-icons { font-size: 18px; }
+  a.dl-btn.ghost { background: transparent; color: var(--accent-dark); }
+  a.dl-btn.ghost:hover { background: var(--accent-light); color: var(--accent-dark); box-shadow: none; }
+  .dl-feature { display: flex; align-items: center; gap: 18px; background: #0F1F21; color: #fff; border-radius: 12px; padding: 22px 26px; margin-bottom: 8px; }
+  .dl-feature .dlf-ic { width: 46px; height: 46px; border-radius: 10px; background: rgba(13,118,128,0.25); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .dl-feature .dlf-ic .material-icons { font-size: 24px; }
+  .dl-feature .dlf-t { font-family: var(--heading); font-size: 18px; font-weight: 600; margin-bottom: 3px; }
+  .dl-feature .dlf-d { font-size: 13px; color: #B8B0A8; line-height: 1.5; }
+  .dl-feature .dlf-cta { margin-left: auto; }
+  .header-dl { margin-top: 18px; }
+  @media (max-width: 700px){ .dl-feature { flex-direction: column; align-items: flex-start; } .dl-feature .dlf-cta { margin-left: 0; } }
+
+  /* ── LINKS PANEL ── */
+  .link-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .link-row { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; text-decoration: none; transition: all .15s; }
+  .link-row:hover { border-color: var(--accent); box-shadow: 0 2px 10px rgba(13,118,128,0.1); transform: translateY(-1px); }
+  .link-row .li { width: 30px; height: 30px; border-radius: 7px; background: var(--accent-light); color: var(--accent-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .link-row .li .material-icons { font-size: 17px; }
+  .link-row .lt { font-size: 13px; font-weight: 600; color: var(--text-primary); line-height: 1.25; }
+  .link-row .lu { font-size: 11px; color: var(--text-muted); font-family: var(--mono); }
+  .link-row .lx { margin-left: auto; color: var(--text-muted); }
+  .link-row .lx .material-icons { font-size: 15px; }
+
+  /* ── PAGE-LOAD POLISH ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .panel.active > * { animation: fadeUp .45s cubic-bezier(.16,.84,.44,1) both; }
+  .panel.active > *:nth-child(2) { animation-delay: .05s; }
+  .panel.active > *:nth-child(3) { animation-delay: .10s; }
+  .panel.active > *:nth-child(4) { animation-delay: .15s; }
+  .panel.active > *:nth-child(5) { animation-delay: .20s; }
+  .panel.active > *:nth-child(n+6) { animation-delay: .24s; }
+  @media (prefers-reduced-motion: reduce) { .panel.active > * { animation: none; } }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; } .sidebar { display: none; }
+    .panel { padding: 24px 20px 56px; } .two-col, .flow, .link-grid { grid-template-columns: 1fr; }
+    .flow-step:not(:last-child)::after { content: 'south'; right: 50%; top: auto; bottom: -16px; transform: translateX(50%); }
+    .site-header { padding: 28px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="eyebrow">QbitLoop · Forward-Deployed AI Consulting Brief</div>
+  <h1>OT Spaces — AI Operations Blueprint</h1>
+  <div class="subtitle">The AI tools available to Open Thinking Space — what each one actually does for the day-to-day, what it costs, and the order to roll them out. Benchmarked against Khan Academy, Mathnasium &amp; Varsity Tutors. Built to be run by Taha, not by a developer.</div>
+  <div class="meta">
+    <div class="meta-item"><span class="material-icons">person</span> Prepared for <strong>Taha Rizvi</strong></div>
+    <div class="meta-item"><span class="material-icons">storefront</span> <strong>Open Thinking Space</strong> · Dublin, CA</div>
+    <div class="meta-item"><span class="material-icons">event</span> <strong>June 2026</strong></div>
+    <div class="meta-item"><span class="material-icons">savings</span> Posture: <strong>cost-first, free where possible</strong></div>
+  </div>
+  <div class="header-dl"><a class="dl-btn" href="llm.txt" download="OT-Spaces-AI-handoff.txt" target="_blank" rel="noopener"><span class="material-icons">download</span> Download the handoff (llm.txt) — continue with Claude on your own</a></div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-title">The Brief</div>
+    <button class="nav-item active" data-panel="overview"><span class="num">0</span> Executive Brief</button>
+    <button class="nav-item" data-panel="today"><span class="num">1</span> Your Business Today</button>
+    <button class="nav-item" data-panel="day"><span class="num">2</span> Taha's Day: Before / After</button>
+    <div class="sidebar-title">The Method</div>
+    <button class="nav-item" data-panel="pros"><span class="num">3</span> How the Pros Do It</button>
+    <div class="sidebar-title">The Toolbox</div>
+    <button class="nav-item" data-panel="google"><span class="num">4</span> The Google Stack</button>
+    <button class="nav-item" data-panel="claude"><span class="num">5</span> Claude &amp; the Assistant</button>
+    <button class="nav-item" data-panel="workflows"><span class="num">6</span> Workflow Playbooks</button>
+    <button class="nav-item" data-panel="cost"><span class="num">7</span> What It Costs</button>
+    <div class="sidebar-title">The Plan</div>
+    <button class="nav-item" data-panel="roadmap"><span class="num">8</span> Rollout Roadmap</button>
+    <button class="nav-item" data-panel="privacy"><span class="num">9</span> Student Data &amp; Trust</button>
+    <button class="nav-item" data-panel="next"><span class="num">10</span> Recommendation</button>
+    <div class="sidebar-title">Reference</div>
+    <button class="nav-item" data-panel="links"><span class="num">11</span> Links &amp; Sources</button>
+    <div class="sidebar-foot">Prepared by <strong>QbitLoop</strong><br>Draft for discussion · not yet published<br>Target: <a href="#">tutor.qbitloop.com</a></div>
+  </nav>
+
+  <main class="main">
+
+    <!-- ════ OVERVIEW ════ -->
+    <section class="panel active" id="overview">
+      <div class="panel-head">
+        <div class="badge">Executive Brief</div>
+        <h2>Run OT Spaces like it has a full back office — for almost nothing.</h2>
+        <p class="lede">Open Thinking Space does the hard part brilliantly: real, unlimited, in-person teaching. Everything <em>around</em> the teaching — intake, scheduling, parent updates, records, follow-ups — is done by hand and from memory. That's exactly what AI is good at now. This brief names the tools, what each does for your day, what it costs, and how the best education brands run the same playbook.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">The one-paragraph version</div>
+        <div class="concept-box">
+          You do <strong>not</strong> need expensive tutoring software. <strong>Google's free consumer tools</strong> (Gemini, Gems, NotebookLM, Study Notebooks, Practice Tests, Forms, Calendar, Sheets) cover the learning side and most of the office for <strong>$0</strong>. Add <strong>one AI assistant</strong> to draft the writing-heavy work — parent updates, follow-ups, newsletters — and run a daily brief. Keep <strong>Wix</strong>, just make the form capture a real lead. Adopt the credibility playbook the pros use — <strong>Diagnose → Plan → Track → Report</strong> — and frame AI honestly: <strong>a human teaches; AI does the paperwork.</strong>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">What we found</div>
+        <div class="numbers-grid">
+          <div class="number-card"><div class="num">~1,000</div><div class="num-label">students taught — but no system holds that history</div></div>
+          <div class="number-card"><div class="num">0</div><div class="num-label">booking, CRM, payments, parent portal, or progress reports today</div></div>
+          <div class="number-card"><div class="num">6+</div><div class="num-label">genuinely useful Google AI tools — all free on consumer accounts</div></div>
+          <div class="number-card"><div class="num">~$0–40</div><div class="num-label">realistic monthly cost to automate the gaps</div></div>
+          <div class="number-card"><div class="num">$4/mo</div><div class="num-label">what Khanmigo charges parents for what we'd build into your brand</div></div>
+          <div class="number-card"><div class="num">$100s</div><div class="num-label">/mo you'd waste on per-student tutoring SaaS at your scale</div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">The recommendation, up front</div>
+        <div class="callout c-green">
+          <div class="lab"><span class="material-icons">recommend</span> Start here</div>
+          Build <strong>three things first</strong>, in OT Spaces' own Google account so you own them forever: (1) a real <strong>lead-capture form</strong> feeding a roster sheet, (2) <strong>AI-drafted parent progress notes</strong> you approve and send, and (3) a <strong>daily brief</strong> that tells you who to follow up with. Wrap them in a named method and a clear parent-privacy promise. Everything else builds on those.
+        </div>
+        <div class="callout c-claret">
+          <div class="lab"><span class="material-icons">verified_user</span> The one rule we won't bend</div>
+          You teach kids — including students with learning differences and autism. The category leaders (Khanmigo, Varsity) gate minors behind <strong>parental consent</strong> and give parents history + oversight. We do the same: raw data stays local, code-names go to the AI, a human reviews everything. Done visibly, this becomes a <em>trust advantage</em>.
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Read the rest →</div>
+        <div class="overview-grid">
+          <div class="ov-card" data-goto="pros"><div class="material-icons ov-ic">workspace_premium</div><div class="ov-t">How the Pros Do It</div><div class="ov-d">The Diagnose→Plan→Track→Report playbook from Khan, Mathnasium &amp; Varsity.</div></div>
+          <div class="ov-card" data-goto="google"><div class="material-icons ov-ic">grid_view</div><div class="ov-t">The Google Stack</div><div class="ov-d">Gemini, Gems, NotebookLM, Study Notebooks, Practice Tests — what's free, plainly.</div></div>
+          <div class="ov-card" data-goto="claude"><div class="material-icons ov-ic">smart_toy</div><div class="ov-t">Claude &amp; the Assistant</div><div class="ov-d">The honest Anthropic-vs-Google picture, and the brain that runs your day.</div></div>
+          <div class="ov-card" data-goto="workflows"><div class="material-icons ov-ic">account_tree</div><div class="ov-t">Workflow Playbooks</div><div class="ov-d">The 7 jobs, each with the exact setup we'd build.</div></div>
+          <div class="ov-card" data-goto="cost"><div class="material-icons ov-ic">payments</div><div class="ov-t">What It Costs</div><div class="ov-d">Three budget tiers, from $0 to a full team assistant.</div></div>
+          <div class="ov-card" data-goto="next"><div class="material-icons ov-ic">flag</div><div class="ov-t">Recommendation</div><div class="ov-d">What to decide today and what we ship this week.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ TODAY ════ -->
+    <section class="panel" id="today">
+      <div class="panel-head">
+        <div class="badge">Diagnostic</div>
+        <h2>Your Business Today</h2>
+        <p class="lede">Before recommending a single tool, here's the current state as we understand it. If any of this is wrong, tell us — the plan adjusts.</p>
+      </div>
+      <div class="section">
+        <div class="section-title">What OT Spaces is</div>
+        <p class="body">An <strong>in-person math &amp; physics</strong> studio in Dublin, CA, built on a genuinely differentiated idea: <strong>unlimited, drop-in, one-on-one help with no time pressure</strong>, plus structured term classes from grade 1 through college/AP. Founded by UC Berkeley math &amp; physics grads. ~1,000 students taught. The brand is calm, open, take-as-long-as-you-need thinking — the opposite of clock-watching chains.</p>
+        <div class="callout c-teal"><div class="lab"><span class="material-icons">lightbulb</span> Design principle this sets</div>We automate the <strong>paperwork around the teaching</strong> — never the drop-in flexibility that makes you different. The tools serve the brand; they don't fight it.</div>
+      </div>
+      <div class="section">
+        <div class="section-title">How each job is handled — today vs. the opportunity</div>
+        <div class="table-wrap"><table>
+          <thead><tr><th style="width:160px">Job</th><th>How it works today</th><th style="width:38%">The opportunity</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Lead intake</strong></td><td>Wix form captures only "which subjects." Qualification happens later by phone.</td><td>Capture grade, subjects, goal, availability up front; AI replies and books a consult.</td></tr>
+            <tr><td><strong>Scheduling</strong></td><td>No system. Drop-ins "by appointment," classes on a fixed calendar held in memory.</td><td>Free Google booking page for consults &amp; classes — not the drop-in flow.</td></tr>
+            <tr><td><strong>Parent updates</strong></td><td>None. No progress notes, no portal. Parents are in the dark between sessions.</td><td><strong>Biggest win.</strong> AI drafts a progress note per student; you approve &amp; send.</td></tr>
+            <tr><td><strong>Student records</strong></td><td>Ad hoc. The history of ~1,000 students lives nowhere reusable.</td><td>One folder + one row per student: intake → plan → notes → progress.</td></tr>
+            <tr><td><strong>Admin / CRM</strong></td><td>Manual rosters, enrollment, payment chasing, term setup, hiring.</td><td>Simple sheet as the source of truth; AI handles follow-up reminders.</td></tr>
+            <tr><td><strong>Marketing</strong></td><td>Wix newsletter ("math tips"), no social presence.</td><td>AI-drafted newsletter + class-opening announcements on a schedule.</td></tr>
+            <tr><td><strong>Daily routine</strong></td><td>All in your head — who to call, who's coming, who owes.</td><td>A one-screen morning brief, generated automatically.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="section">
+        <div class="callout c-gold"><div class="lab"><span class="material-icons">help_outline</span> Three things to confirm in our meeting</div>
+          1) Address — Dublin or Pleasanton? (Your site says both.) &nbsp; 2) Do you already have a Google account / Workspace for the business? &nbsp; 3) What does your Wix plan include?</div>
+      </div>
+    </section>
+
+    <!-- ════ DAY ════ -->
+    <section class="panel" id="day">
+      <div class="panel-head">
+        <div class="badge">Day in the life</div>
+        <h2>Taha's Day: Before / After</h2>
+        <p class="lede">The point of all this is to give you back hours and stop things falling through the cracks.</p>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="section-title" style="color:var(--red)">Today</div>
+          <div class="callout c-claret" style="margin-bottom:12px"><div class="lab"><span class="material-icons">wb_sunny</span> Morning</div>You try to remember who emailed over the weekend. Two parent texts are buried in your phone. A Friday inquiry never got a reply.</div>
+          <div class="callout c-claret" style="margin-bottom:12px"><div class="lab"><span class="material-icons">groups</span> During sessions</div>You teach all afternoon. No time to write anything down. A parent asks "how's my son doing?" and you answer from memory.</div>
+          <div class="callout c-claret"><div class="lab"><span class="material-icons">nights_stay</span> Evening</div>You finally call the new lead — they already booked elsewhere. You meant to send a class-opening email two weeks ago.</div>
+        </div>
+        <div>
+          <div class="section-title" style="color:var(--green)">With the assistant</div>
+          <div class="callout c-green" style="margin-bottom:12px"><div class="lab"><span class="material-icons">wb_sunny</span> Morning</div>One brief is waiting: <em>"3 new leads (auto-replied, consults offered), 2 parents to update, 1 invoice unpaid, today: 4 classes."</em> You skim it in 90 seconds.</div>
+          <div class="callout c-green" style="margin-bottom:12px"><div class="lab"><span class="material-icons">groups</span> During sessions</div>After a session you jot 2 lines or say them into your phone. That's it.</div>
+          <div class="callout c-green"><div class="lab"><span class="material-icons">nights_stay</span> Evening</div>The assistant drafted 2 parent progress notes from your jottings. You read, tweak a word, hit send. New leads were answered hours ago.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ PROS ════ -->
+    <section class="panel" id="pros">
+      <div class="panel-head">
+        <div class="badge gold">Benchmark</div>
+        <h2>How the Pros Do It</h2>
+        <p class="lede">Khan Academy, Mathnasium, Kumon, IXL and Varsity Tutors all run the <em>same</em> credibility playbook. None of it requires expensive software — it's a documented process plus a simple parent-facing artifact. Here it is, and how OT Spaces adopts it for almost nothing.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">The spine every credible brand uses</div>
+        <div class="flow">
+          <div class="flow-step"><div class="fn">01</div><div class="ft">Diagnose</div><div class="fd">A short intake + diagnostic finds exactly where the student is. (Mathnasium "discovery"; IXL real-time diagnostic.)</div></div>
+          <div class="flow-step"><div class="fn">02</div><div class="ft">Plan</div><div class="fd">A personalized plan from that diagnostic — the named method in action. (Mathnasium Method™.)</div></div>
+          <div class="flow-step"><div class="fn">03</div><div class="ft">Track</div><div class="fd">Visible progress toward mastery. (Khan mastery bars, IXL SmartScore.)</div></div>
+          <div class="flow-step"><div class="fn">04</div><div class="ft">Report</div><div class="fd">A regular progress report to parents. (Mathnasium "Progress Report Time"; Kumon Connect.)</div></div>
+        </div>
+        <p class="footnote">This maps exactly onto OT Spaces' natural flow: intake → assessment → learning plan → session notes → progress → parent report. You already do the teaching version of this; we make it visible.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">The "augment, don't replace" frame — your strongest angle</div>
+        <p class="body">The leaders have already solved the AI-skeptic tension, and the framing is consistent: <strong>human tutors teach; AI fills the gaps between sessions and removes admin.</strong> <a class="lk" href="https://www.varsitytutors.com/schools/live-ai" target="_blank" rel="noopener">Varsity Tutors</a> brands it <span class="pill pill-blue">Live + AI™</span> / "AI for HI™" (AI <em>for</em> Human Interaction). <a class="lk" href="https://www.khanmigo.ai/" target="_blank" rel="noopener">Khanmigo's</a> headline behavior is "<strong>guides, doesn't give answers</strong>" — which is <em>already</em> how OT Spaces teaches.</p>
+        <div class="callout c-teal"><div class="lab"><span class="material-icons">format_quote</span> Suggested positioning line</div>"At Open Thinking Space, a real teacher does the teaching. AI just does the paperwork — so Taha spends more time with your child, not less." That turns the skeptic's worry into your benefit: <strong>more human time.</strong></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Three cheap moves that buy instant credibility</div>
+        <ul class="body">
+          <li><strong>Name your method.</strong> Mathnasium Method™, the Kumon Method. A named, repeatable system reads as rigor, not one person's habits. Suggestion: <strong>"The Open Thinking Method"</strong> — Diagnose, think it through together, master it, report the win.</li>
+          <li><strong>Show a sample parent progress report.</strong> It's the single most-copied trust artifact across every competitor — and the cheapest to make (it's our Phase 1). Mockup below.</li>
+          <li><strong>Put a parent-privacy promise on the site.</strong> Turns your data discipline into a customer-facing differentiator most small tutors never bother with.</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">What a parent progress note would look like</div>
+        <div class="report-mock">
+          <div class="rm-bar"><span class="material-icons">mail</span> From Open Thinking Space &nbsp;·&nbsp; To: Parent of Sara &nbsp;·&nbsp; Weekly Update</div>
+          <div class="rm-body">
+            <span class="rm-tag">The Open Thinking Method</span>
+            <h5 style="margin-top:8px">Sara — Calculus, week of June 22</h5>
+            <div class="rm-meta">2 drop-in sessions · ~3.5 hours · Goal: AP Calc AB readiness</div>
+            <p><strong>This week:</strong> Sara worked through related-rates problems. She's confident applying the chain rule and now sets up the equation independently — a real step up from last week.</p>
+            <p><strong>Where she's growing:</strong> translating word problems into the right setup. We slowed down and reasoned each one out together rather than rushing to a formula.</p>
+            <p><strong>Next:</strong> a short related-rates practice set (auto-generated, guided — not answer-key). We'll review it together Thursday.</p>
+            <p style="color:var(--text-muted);font-size:12.5px;margin-top:12px;border-top:1px solid var(--border);padding-top:10px">Drafted with AI from Taha's session notes · reviewed and sent by Taha · your child's full name is never shared with any AI tool.</p>
+          </div>
+        </div>
+        <p class="rm-cap">Two lines of session notes in → this out. Taha approves before it sends. This is the artifact parents remember you by.</p>
+      </div>
+    </section>
+
+    <!-- ════ GOOGLE ════ -->
+    <section class="panel" id="google">
+      <div class="panel-head">
+        <div class="badge blue">The Toolbox</div>
+        <h2>The Google Stack</h2>
+        <p class="lede">Google has shipped a <em>lot</em> of AI lately — Gemini, Gems, NotebookLM, Study Notebooks, Practice Tests. Here's the plain-English answer to "are they included?" — almost all of it is <strong>free on a normal consumer account</strong>. You don't need the school edition (and as a tutoring business, you can't get it anyway — see the eligibility note).</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">The whole suite, free vs paid, at a glance</div>
+        <div class="table-wrap"><table>
+          <thead><tr><th style="width:150px">Tool</th><th>What it does for Taha</th><th style="width:150px">Free?</th></tr></thead>
+          <tbody>
+            <tr><td><a class="lk-name" href="https://gemini.google.com" target="_blank" rel="noopener"><strong>Gemini app</strong></a></td><td>Draft worksheets &amp; practice problems, explain concepts, plan lessons, differentiate by level.</td><td><span class="tag-free">Free tier</span> · <a class="lk" href="https://one.google.com/about/google-ai-plans/" target="_blank" rel="noopener">AI Plus $7.99 · Pro $19.99</a></td></tr>
+            <tr><td><a class="lk-name" href="https://gemini.google/overview/gems/" target="_blank" rel="noopener"><strong>Gems</strong></a></td><td>Saved custom tutors — e.g. an "AP Physics Socratic Coach" Gem that always uses your method &amp; voice.</td><td><span class="tag-free">Free</span></td></tr>
+            <tr><td><a class="lk-name" href="https://notebooklm.google" target="_blank" rel="noopener"><strong>NotebookLM</strong></a></td><td>Upload your textbook/problem sets → it makes study guides, flashcards, quizzes, even audio "podcast" overviews — grounded only in your materials.</td><td><span class="tag-free">Free</span> (<a class="lk" href="https://notebooklm.google/plans" target="_blank" rel="noopener">Plus</a>)</td></tr>
+            <tr><td><a class="lk-name" href="https://blog.google/innovation-and-ai/products/gemini-app/gemini-study-notebooks/" target="_blank" rel="noopener"><strong>Study Notebooks</strong></a></td><td>A space that turns Gemini into adaptive, personalized lessons per student goal — for self-study between sessions.</td><td><span class="tag-free">Free</span>, global</td></tr>
+            <tr><td><a class="lk-name" href="https://blog.google/products/gemini/guided-learning-google-gemini/" target="_blank" rel="noopener"><strong>Guided Learning</strong></a></td><td>The Socratic "guides, doesn't answer" mode — the same pedagogy you already teach, available 24/7.</td><td><span class="tag-free">Free</span></td></tr>
+            <tr><td><a class="lk-name" href="https://blog.google/products-and-platforms/products/education/practice-sat-gemini/" target="_blank" rel="noopener"><strong>Practice Tests</strong></a></td><td>Full-length practice exams that score the student and flag weak topics. <strong>SAT live now</strong> (w/ Princeton Review); ACT &amp; GRE coming.</td><td><span class="tag-free">Free</span></td></tr>
+            <tr><td><a class="lk-name" href="https://docs.google.com/forms" target="_blank" rel="noopener"><strong>Forms</strong></a></td><td>Rich intake forms, diagnostic quizzes, auto-graded practice, post-session feedback.</td><td><span class="tag-free">Free</span></td></tr>
+            <tr><td><a class="lk-name" href="https://workspace.google.com/resources/appointment-scheduling/" target="_blank" rel="noopener"><strong>Calendar booking</strong></a></td><td>A self-serve booking page for consults &amp; classes.</td><td><span class="tag-free">Free</span> (1 page); reminders/payments need paid</td></tr>
+            <tr><td><a class="lk-name" href="https://workspace.google.com/" target="_blank" rel="noopener"><strong>Sheets / Drive / Sites</strong></a></td><td>Your roster &amp; CRM (Sheets), one folder per student (Drive), a resource portal (Sites).</td><td><span class="tag-free">Free</span></td></tr>
+          </tbody>
+        </table></div>
+        <p class="footnote">Prices are consumer "Google AI" plan list rates (mid-2026): AI Plus $7.99, AI Pro $19.99 (50% off first year), AI Ultra from $99.99. A single AI Pro seat for Taha is plenty; students use the free tier themselves.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">The eligibility footnote that matters</div>
+        <div class="callout c-claret"><div class="lab"><span class="material-icons">gpp_maybe</span> You will NOT qualify for "Google for Education" — and you don't need it</div>
+          Google's own <a class="lk" href="https://support.google.com/a/answer/139019" target="_blank" rel="noopener">eligibility policy</a> lists <strong>"tutoring programs"</strong> as <em>explicitly ineligible</em> for the free Workspace for Education edition and for <strong>Gemini in Google Classroom</strong> (those are for accredited schools). Good news: every tool in the table above works on a <strong>normal free Google account</strong>. So we skip the school edition entirely and use the free consumer stack. The only thing you'd ever pay Google for is <strong>Workspace Business</strong> (~$7/user/mo) if you want custom-domain email (you@otspaces.com) and booking with automated reminders + card payments.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Keep &amp; tune · and what to skip</div>
+        <div class="callout c-teal"><div class="lab"><span class="material-icons">edit_note</span> Keep Wix — one change</div>Expand the contact form to capture name, student grade, subjects, goal, availability, then auto-send each submission into your Google roster sheet. That single change turns a dead form into a real lead pipeline. No new spend.</div>
+        <div class="callout c-claret"><div class="lab"><span class="material-icons">block</span> Skip the per-student SaaS trap</div>Vertical platforms (TutorBird, Teachworks, all-in-one "school OS" tools) often bill <strong>per student per month</strong> — at ~1,000 students that's hundreds monthly for things Google + one assistant already do. Adopt one only if you specifically need integrated card payments + invoicing.</div>
+      </div>
+    </section>
+
+    <!-- ════ CLAUDE ════ -->
+    <section class="panel" id="claude">
+      <div class="panel-head">
+        <div class="badge">The Toolbox</div>
+        <h2>Claude &amp; the Assistant</h2>
+        <p class="lede">You asked the honest question: does Anthropic (Claude) offer educators free tools the way Google does? Short answer — <strong>no, not really</strong>. Here's the straight picture, plus the small, cheap way Claude still earns its place as the "brain" that runs your office.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Anthropic vs Google for a small tutoring business — the honest table</div>
+        <div class="table-wrap"><table>
+          <thead><tr><th style="width:230px">Offer</th><th>Anthropic / Claude</th><th>Google</th></tr></thead>
+          <tbody>
+            <tr><td>Free education suite for tutors</td><td class="tag-no">None for you</td><td class="tag-free">Yes — full free consumer suite</td></tr>
+            <tr><td><a class="lk" href="https://www.anthropic.com/news/introducing-claude-for-education" target="_blank" rel="noopener">"For Education" program</a></td><td>Universities only (institutional SSO) — <span class="tag-no">tutors can't access</span></td><td>Schools only too, but consumer tools cover you free</td></tr>
+            <tr><td>Educator / teacher discount</td><td class="tag-no">None</td><td>n/a (tools already free)</td></tr>
+            <tr><td><a class="lk" href="https://www.anthropic.com/news/claude-for-nonprofits" target="_blank" rel="noopener">Nonprofit discount</a></td><td>Up to 75% off (~$8/seat) — <strong>but needs 501(c)(3) or being a school</strong>; for-profit tutor excluded</td><td>Google for Nonprofits exists on similar terms</td></tr>
+            <tr><td>Realistic cost for you</td><td>Free tier, or <strong>Pro $20/mo</strong></td><td><strong>$0</strong>, or 1 AI Pro seat $19.99</td></tr>
+            <tr><td>Where it wins</td><td><strong>Model quality &amp; tutoring behavior</strong> (Socratic "Learning" mode); great as the writing/automation brain</td><td><strong>Free breadth</strong> &amp; the learning tools students self-serve</td></tr>
+          </tbody>
+        </table></div>
+        <div class="callout c-gold"><div class="lab"><span class="material-icons">savings</span> One door that could open later</div>If OT Spaces ever set up a <strong>501(c)(3) nonprofit arm</strong> (e.g. a community math program), Anthropic's <strong>up-to-75%-off</strong> nonprofit plan (~$8/seat) and similar school/nonprofit deals would unlock. As a for-profit today, they don't — so we don't plan around them.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">So where does Claude fit? As the office brain.</div>
+        <div class="tool-card">
+          <div class="th"><div class="tname"><a class="lk-name" href="https://github.com/nousresearch/hermes-agent" target="_blank" rel="noopener">The Assistant — Hermes</a> running Claude &nbsp;<span class="pill pill-green">budget pick</span></div><span class="verdict v-start">Start now</span></div>
+          <div class="tone">A private assistant that runs a Claude model (routed through <a class="lk" href="https://openrouter.ai" target="_blank" rel="noopener">OpenRouter</a>, so you can swap models anytime), schedules daily routines, and can be messaged from Slack, WhatsApp, or Telegram.</div>
+          <div class="trow"><div class="k">For your day</div><div class="v">Runs your <strong>morning brief</strong> automatically, drafts parent notes &amp; follow-up replies, answers when you message it — no per-seat software subscription.</div></div>
+          <div class="trow"><div class="k">Day-to-day jobs</div><div class="v"><span class="pill">Daily brief (auto)</span><span class="pill">Draft parent notes</span><span class="pill">Lead auto-reply</span><span class="pill">Reminders</span><span class="pill">Newsletter drafts</span></div></div>
+          <div class="trow"><div class="k">Cost</div><div class="v"><strong>Pay-per-use AI</strong> via one OpenRouter key — a few dollars to ~$30/mo at your volume. No seat fees.</div></div>
+        </div>
+        <div class="tool-card">
+          <div class="th"><div class="tname"><a class="lk-name" href="https://support.claude.com/en/articles/11506255-get-started-with-claude-in-slack" target="_blank" rel="noopener">Claude in Slack ("Claude Tag")</a> &nbsp;<span class="pill pill-blue">premium UX</span></div><span class="verdict v-later">Upgrade later</span></div>
+          <div class="tone">A persistent AI teammate inside Slack — you and staff type <code>@Claude</code> and hand off work. Lovely once you have a team.</div>
+          <div class="trow"><div class="k">Reality check</div><div class="v">Requires <a class="lk" href="https://claude.com/pricing" target="_blank" rel="noopener"><strong>Claude Team</strong></a> (≈$25/seat/mo, <strong>5-seat minimum</strong>) + Slack. No education pricing. Overkill for a 1–2 person shop — revisit when you grow.</div></div>
+          <div class="trow"><div class="k">Plain Claude</div><div class="v">Separately, a single <a class="lk" href="https://claude.com/pricing" target="_blank" rel="noopener"><strong>Claude Pro seat ($20/mo)</strong></a> is a great lesson-prep tool for Taha — and its Socratic "Learning" style mirrors how you teach.</div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">An on-brand idea for later: the "Thinking Helper"</div>
+        <div class="callout c-blue"><div class="lab"><span class="material-icons">psychology</span> Phase 3+, consent-gated, optional</div>
+          A between-session practice helper that <strong>guides, never gives the final answer</strong> — one hint at a time, and after 3 hints it says "bring this to Taha next session." It (a) uses code-names not real identities, (b) routes back to the human tutor, and (c) extends your "unlimited, no time pressure" promise to 24/7. Khanmigo charges parents $4/mo for exactly this; it'd ride on the assistant you already have. Build it <em>after</em> the back-office wins, behind parental consent.</div>
+      </div>
+    </section>
+
+    <!-- ════ WORKFLOWS ════ -->
+    <section class="panel" id="workflows">
+      <div class="panel-head">
+        <div class="badge">The Toolbox</div>
+        <h2>Workflow Playbooks</h2>
+        <p class="lede">The seven jobs that run your business — and the exact, low-cost setup for each. Every one keeps you in control: <strong>AI drafts, you approve.</strong></p>
+      </div>
+      <div class="section"><div class="section-title">1 · Lead intake &amp; qualification</div><div class="concept-box"><p class="body"><strong>Setup:</strong> Wix form (name, grade, subjects, goal, availability) → Google Sheet → assistant sends a warm, on-brand reply within minutes that asks any missing question and offers a consult time.</p><p class="body sec" style="margin:0"><strong>Why:</strong> the lead you answer in 5 minutes is the lead you keep. Today some never get a reply.</p></div></div>
+      <div class="section"><div class="section-title">2 · Scheduling (consults &amp; classes only)</div><div class="concept-box"><p class="body"><strong>Setup:</strong> Google Calendar appointment page for consults &amp; class enrollment, linked from the site. <strong>Drop-in tutoring stays exactly as is</strong> — flexible, no slots.</p><p class="body sec" style="margin:0"><strong>Why:</strong> parents self-book without phone tag; you protect the "stay as long as you need" model.</p></div></div>
+      <div class="section"><div class="section-title">3 · Parent communication &amp; progress reports &nbsp;<span class="pill pill-green">highest value</span></div><div class="concept-box"><p class="body"><strong>Setup:</strong> after a session you leave 1–2 lines (typed or voice). The assistant turns them into the friendly, specific progress note shown in "How the Pros Do It." You approve; it emails the parent.</p><p class="body sec" style="margin:0"><strong>Why:</strong> the gap parents feel most, and the one no competitor your size fills. A retention &amp; referral engine.</p></div></div>
+      <div class="section"><div class="section-title">4 · Per-student learning workflows</div><div class="concept-box"><p class="body"><strong>Setup:</strong> one Drive folder + sheet row per student (intake → goals → plan → notes → milestones). Free <strong>Study Notebooks</strong> &amp; <strong>Practice Tests</strong> generate tailored practice &amp; diagnostics per goal.</p><p class="body sec" style="margin:0"><strong>Why:</strong> the teaching sharpens and the record compounds — a new teacher can pick up a student in minutes.</p></div></div>
+      <div class="section"><div class="section-title">5 · Administration &amp; light CRM</div><div class="concept-box"><p class="body"><strong>Setup:</strong> the Google Sheet is the single roster/CRM — status, enrollment, payment state. The assistant flags overdue invoices &amp; stale leads and drafts the nudge emails.</p><p class="body sec" style="margin:0"><strong>Why:</strong> money and follow-ups stop slipping; no $100s/mo CRM needed.</p></div></div>
+      <div class="section"><div class="section-title">6 · Marketing &amp; newsletter</div><div class="concept-box"><p class="body"><strong>Setup:</strong> assistant drafts the monthly "math tips" newsletter &amp; class-opening announcements from your term calendar; you approve; Wix/Gmail sends.</p><p class="body sec" style="margin:0"><strong>Why:</strong> consistent, low-effort presence keeps the pipeline warm between terms.</p></div></div>
+      <div class="section"><div class="section-title">7 · Daily ops routine</div><div class="concept-box"><p class="body"><strong>Setup:</strong> a scheduled assistant job builds your morning brief — new leads (and whether auto-replied), today's schedule, parents to update, unpaid invoices — to your phone before you start.</p><p class="body sec" style="margin:0"><strong>Why:</strong> you run the day from one screen instead of from memory.</p></div></div>
+    </section>
+
+    <!-- ════ COST ════ -->
+    <section class="panel" id="cost">
+      <div class="panel-head">
+        <div class="badge gold">Budget</div>
+        <h2>What It Costs</h2>
+        <p class="lede">Three honest tiers. Start at Tier 1; climb only when a tool has clearly earned it. Figures are approximate June-2026 list prices.</p>
+      </div>
+      <div class="section"><div class="table-wrap"><table>
+        <thead><tr><th style="width:150px">Tier</th><th>What you get</th><th style="width:140px">Monthly cost</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Tier 0</strong><br><span class="pill pill-gray">Free foundation</span></td><td>Free Google account (Gemini, Gems, NotebookLM, Study Notebooks, Practice Tests, Forms, Calendar booking, Sheets, Drive) + improved Wix form. Organized, mostly manual.</td><td><span class="tag-free">$0</span><br><span class="footnote">Wix already paid</span></td></tr>
+          <tr><td><strong>Tier 1</strong> <span class="pill pill-green">recommended</span><br><span class="pill pill-gray">Lean automation</span></td><td>Tier 0 + the <strong>Hermes/Claude assistant</strong> running the daily brief, parent-note drafts &amp; lead auto-replies. Optionally 1 Google AI Pro <em>or</em> Claude Pro seat for richer prep.</td><td><strong>~$20–40</strong><br><span class="footnote">AI usage + 1 optional seat</span></td></tr>
+          <tr><td><strong>Tier 2</strong><br><span class="pill pill-gray">Team + payments</span></td><td>Tier 1 + <strong>Google Workspace Business</strong> (custom email, booking with reminders + Stripe payments) and/or <strong>Claude in Slack</strong> seats (5-seat min) when you grow the team.</td><td><strong>~$60–120</strong><br><span class="footnote">per-seat plans</span></td></tr>
+        </tbody>
+      </table></div></div>
+      <div class="section"><div class="callout c-green"><div class="lab"><span class="material-icons">trending_down</span> You avoid the per-student trap</div>The tempting "all-in-one tutoring platform" usually bills per student or per active family — <strong>hundreds a month</strong> at your scale. Tier 1 gets the same outcomes (booking, records, parent updates, follow-ups) for the price of a couple of lunches, because the heavy lifting rides on free Google + pay-as-you-go AI.</div>
+      <p class="footnote">List estimates that move; we'll confirm exact figures against your existing Google/Wix plans before you commit a dollar.</p></div>
+    </section>
+
+    <!-- ════ ROADMAP ════ -->
+    <section class="panel" id="roadmap">
+      <div class="panel-head"><div class="badge">The Plan</div><h2>Rollout Roadmap</h2><p class="lede">Ship one win, prove it, then expand. No big-bang. You should feel value in week one.</p></div>
+      <div class="section"><div class="steps">
+        <div class="step phase0"><div class="dot">0</div><div class="sc"><div class="when">This week · ½ day</div><h4>Confirm &amp; lay the foundation</h4><p>Confirm Google/Wix status &amp; the address. Stand up student folders + roster sheet. Name the method. Draft the consent line. Improve the Wix form.</p></div></div>
+        <div class="step"><div class="dot">1</div><div class="sc"><div class="when">Weeks 1–2 · first win</div><h4>Parent progress notes</h4><p>Build the highest-leverage workflow end to end. Two lines in → approved note out, in the format on the "Pros" page. Measure time saved &amp; parent reaction.</p></div></div>
+        <div class="step"><div class="dot">2</div><div class="sc"><div class="when">Weeks 3–4</div><h4>Daily ops brief + lead auto-reply</h4><p>Turn on the automatic morning brief and instant lead replies. Nothing waits anymore.</p></div></div>
+        <div class="step"><div class="dot">3</div><div class="sc"><div class="when">Month 2</div><h4>Student learning workflows</h4><p>Roll out free Study Notebooks &amp; Practice Tests per student. The per-student record starts compounding. Optional: pilot the consent-gated "Thinking Helper."</p></div></div>
+        <div class="step"><div class="dot">4</div><div class="sc"><div class="when">Month 3</div><h4>Marketing loop + handoff</h4><p>Automate the newsletter &amp; announcements. Review what's working, decide on Tier 2, and hand you a written runbook so you own the whole system.</p></div></div>
+      </div></div>
+    </section>
+
+    <!-- ════ PRIVACY ════ -->
+    <section class="panel" id="privacy">
+      <div class="panel-head"><div class="badge claret">Non-negotiable</div><h2>Student Data &amp; Trust</h2><p class="lede">You teach minors, some with learning differences or autism. The category leaders gate this carefully — Khanmigo and Varsity foreground parental consent, data security &amp; oversight. Done visibly, it's a reason parents choose you.</p></div>
+      <div class="section"><div class="section-title">The four rules we build into everything</div><ul class="body">
+        <li><strong>Raw data stays private.</strong> Names, contacts &amp; sensitive notes live in OT Spaces' own Google account — never pasted into public AI chats.</li>
+        <li><strong>Code-names to the AI.</strong> The assistant drafts with "Student #14," not full identities, wherever possible.</li>
+        <li><strong>Parental consent.</strong> A one-paragraph consent at intake covering record-keeping &amp; AI-assisted communication — the same gate Khanmigo uses for under-18s. We'll draft it.</li>
+        <li><strong>You own it.</strong> Everything sits in accounts Taha controls, exportable anytime, no lock-in.</li>
+      </ul></div>
+      <div class="section"><div class="callout c-teal"><div class="lab"><span class="material-icons">handshake</span> Turn it into a selling point</div>A short "How we protect your child's information" line on the site &amp; at intake signals seriousness most small tutors skip. With your autism/learning-difference families especially, that trust is worth more than any feature.</div>
+      <p class="footnote">Operational good practice, not legal advice. For formal COPPA/CCPA compliance, a quick professional check before launch is inexpensive and worth it.</p></div>
+    </section>
+
+    <!-- ════ NEXT ════ -->
+    <section class="panel" id="next">
+      <div class="panel-head"><div class="badge">Decision</div><h2>Recommendation &amp; Next Steps</h2><p class="lede">If we agree on one thing today, make it this: start small, start free, own it forever.</p></div>
+
+      <div class="section">
+        <div class="section-title">How to use this handoff (the smooth transition)</div>
+        <div class="callout c-blue"><div class="lab"><span class="material-icons">smart_toy</span> Hand the whole project to Claude — on your own account</div>
+          Download <strong>llm.txt</strong> (button below). It's a full operator playbook written for an AI: the business, the plan, the tool stack, exact specs, system prompts, and step-by-step build instructions. To continue without anyone else in the loop:
+          <ol class="body" style="margin:10px 0 4px 20px;color:var(--text-primary)">
+            <li><strong>Open a fresh Claude session</strong> on your account — Claude Code (most capable) or Claude.ai / Cowork (simplest).</li>
+            <li><strong>Give it llm.txt</strong> (save it in the folder for Claude Code, or paste it into chat).</li>
+            <li><strong>Say:</strong> <em>"Read llm.txt and interview me (Section 4)."</em> Claude asks you the pain-point questions only you can answer, then builds Phase 1 with you — approving each step.</li>
+          </ol>
+          The file includes the interview script, copy-paste prompts for each phase, and the rule that <strong>AI drafts, you approve</strong>.
+        </div>
+      </div>
+
+      <div class="section"><div class="section-title">The recommendation in one line</div><div class="concept-box">Build <strong>Tier 1</strong> in OT Spaces' own Google account: a real lead form → roster sheet, the <strong>Hermes/Claude assistant</strong> drafting parent notes &amp; running your daily brief, on top of Google's free learning tools — wrapped in a named method and a parent-privacy promise. Cost: a couple of lunches a month. Revisit paid seats only once you've felt the value.</div></div>
+      <div class="section"><div class="section-title">What we need from you to go to 100%</div><div class="table-wrap"><table>
+        <thead><tr><th style="width:50%">Open question</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>Address: Dublin or Pleasanton?</td><td>Goes on every parent-facing template.</td></tr>
+          <tr><td>Do you have a Google account/Workspace already?</td><td>Decides whether Tier 1 costs ~$0 or adds ~$7/mo for custom email.</td></tr>
+          <tr><td>Which first workflow — parent notes or lead auto-reply?</td><td>Sets what we build in week one.</td></tr>
+          <tr><td>OK to name the method &amp; show a sample report on the site?</td><td>The two credibility moves from the benchmark.</td></tr>
+          <tr><td>Comfortable with the consent + code-name approach?</td><td>The privacy foundation everything sits on.</td></tr>
+        </tbody>
+      </table></div></div>
+      <div class="section"><div class="callout c-green"><div class="lab"><span class="material-icons">rocket_launch</span> If you say go today</div>We can have the improved lead form and the first parent-note workflow live <strong>this week</strong>. You'd walk into next week with inquiries answered automatically and your first AI-drafted progress notes ready to send.</div>
+      <div style="margin-top:14px"><a class="dl-btn" href="llm.txt" download="OT-Spaces-AI-handoff.txt" target="_blank" rel="noopener"><span class="material-icons">download</span> Download the handoff (llm.txt)</a> &nbsp; <a class="dl-btn ghost" href="#" onclick="document.querySelector('[data-panel=links]').click();return false;"><span class="material-icons">link</span> All links &amp; sources</a></div>
+      <p class="footnote" style="margin-top:10px">Prefer to run it yourself? The handoff file lets a fresh Claude session on your own account pick up exactly where this brief leaves off.</p></div>
+      <p class="footnote">Prepared by QbitLoop as a forward-deployed AI consulting brief for Open Thinking Space. Figures &amp; eligibility verified June 2026; confirm against your accounts before any spend. Intended for publication at tutor.qbitloop.com upon approval.</p></div>
+    </section>
+
+    <!-- ════ LINKS ════ -->
+    <section class="panel" id="links">
+      <div class="panel-head">
+        <div class="badge">Reference</div>
+        <h2>Links &amp; Sources</h2>
+        <p class="lede">Every tool and source in this brief, as a direct link — each opens in a new tab. Hand this page to Taha and he can click straight into anything to try it.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Take the whole project with you</div>
+        <div class="dl-feature">
+          <div class="dlf-ic"><span class="material-icons">smart_toy</span></div>
+          <div>
+            <div class="dlf-t">Download the handoff file (llm.txt)</div>
+            <div class="dlf-d">Everything we decided and will build, written for an AI. Open a fresh Claude session (Claude Code or Cowork) on your <strong>own account</strong>, give it this file, and continue the build yourself — no one else in the loop. Starter prompts are included inside.</div>
+          </div>
+          <div class="dlf-cta"><a class="dl-btn" href="llm.txt" download="OT-Spaces-AI-handoff.txt" target="_blank" rel="noopener"><span class="material-icons">download</span> Download llm.txt</a></div>
+        </div>
+        <p class="footnote">It's a plain-text briefing — business facts, the full tool stack with links, the 7 workflows, costs, privacy rules, the roadmap, and copy-paste prompts to continue with Claude.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Google — the free stack</div>
+        <div class="link-grid">
+          <a class="link-row" href="https://gemini.google.com" target="_blank" rel="noopener"><span class="li"><span class="material-icons">auto_awesome</span></span><span><span class="lt">Gemini app</span><br><span class="lu">gemini.google.com</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://one.google.com/about/google-ai-plans/" target="_blank" rel="noopener"><span class="li"><span class="material-icons">sell</span></span><span><span class="lt">Google AI plans &amp; pricing</span><br><span class="lu">one.google.com/about/google-ai-plans</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://gemini.google/overview/gems/" target="_blank" rel="noopener"><span class="li"><span class="material-icons">diamond</span></span><span><span class="lt">Gems (custom tutors)</span><br><span class="lu">gemini.google/overview/gems</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://notebooklm.google" target="_blank" rel="noopener"><span class="li"><span class="material-icons">menu_book</span></span><span><span class="lt">NotebookLM</span><br><span class="lu">notebooklm.google</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://blog.google/innovation-and-ai/products/gemini-app/gemini-study-notebooks/" target="_blank" rel="noopener"><span class="li"><span class="material-icons">school</span></span><span><span class="lt">Study Notebooks</span><br><span class="lu">blog.google · study-notebooks</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://blog.google/products/gemini/guided-learning-google-gemini/" target="_blank" rel="noopener"><span class="li"><span class="material-icons">psychology</span></span><span><span class="lt">Guided Learning (Socratic)</span><br><span class="lu">blog.google · guided-learning</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://blog.google/products-and-platforms/products/education/practice-sat-gemini/" target="_blank" rel="noopener"><span class="li"><span class="material-icons">quiz</span></span><span><span class="lt">Practice Tests (SAT live)</span><br><span class="lu">blog.google · practice-sat-gemini</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://blog.google/products-and-platforms/products/education/iste-students-2026/" target="_blank" rel="noopener"><span class="li"><span class="material-icons">campaign</span></span><span><span class="lt">ISTE 2026 education announcement</span><br><span class="lu">blog.google · iste-students-2026</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://workspace.google.com/resources/appointment-scheduling/" target="_blank" rel="noopener"><span class="li"><span class="material-icons">event_available</span></span><span><span class="lt">Calendar appointment scheduling</span><br><span class="lu">workspace.google.com · appointment-scheduling</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://docs.google.com/forms" target="_blank" rel="noopener"><span class="li"><span class="material-icons">list_alt</span></span><span><span class="lt">Google Forms</span><br><span class="lu">docs.google.com/forms</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://workspace.google.com/pricing" target="_blank" rel="noopener"><span class="li"><span class="material-icons">workspaces</span></span><span><span class="lt">Workspace Business (paid email/booking)</span><br><span class="lu">workspace.google.com/pricing</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://support.google.com/a/answer/139019" target="_blank" rel="noopener"><span class="li"><span class="material-icons">gpp_maybe</span></span><span><span class="lt">Education eligibility policy (tutors excluded)</span><br><span class="lu">support.google.com/a/answer/139019</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">The AI brain — Claude &amp; Anthropic</div>
+        <div class="link-grid">
+          <a class="link-row" href="https://claude.com" target="_blank" rel="noopener"><span class="li"><span class="material-icons">smart_toy</span></span><span><span class="lt">Claude</span><br><span class="lu">claude.com</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://claude.com/pricing" target="_blank" rel="noopener"><span class="li"><span class="material-icons">sell</span></span><span><span class="lt">Claude pricing (Free / Pro / Team)</span><br><span class="lu">claude.com/pricing</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://github.com/nousresearch/hermes-agent" target="_blank" rel="noopener"><span class="li"><span class="material-icons">terminal</span></span><span><span class="lt">Hermes Agent (the assistant)</span><br><span class="lu">github.com/nousresearch/hermes-agent</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://openrouter.ai" target="_blank" rel="noopener"><span class="li"><span class="material-icons">hub</span></span><span><span class="lt">OpenRouter (one key, swap models)</span><br><span class="lu">openrouter.ai</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://support.claude.com/en/articles/11506255-get-started-with-claude-in-slack" target="_blank" rel="noopener"><span class="li"><span class="material-icons">tag</span></span><span><span class="lt">Claude in Slack ("Claude Tag")</span><br><span class="lu">support.claude.com · claude-in-slack</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://www.anthropic.com/news/introducing-claude-for-education" target="_blank" rel="noopener"><span class="li"><span class="material-icons">history_edu</span></span><span><span class="lt">Claude for Education (universities)</span><br><span class="lu">anthropic.com · claude-for-education</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://www.anthropic.com/news/claude-for-nonprofits" target="_blank" rel="noopener"><span class="li"><span class="material-icons">volunteer_activism</span></span><span><span class="lt">Claude for Nonprofits (75% off, if 501c3)</span><br><span class="lu">anthropic.com · claude-for-nonprofits</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Benchmarks — how the pros do it</div>
+        <div class="link-grid">
+          <a class="link-row" href="https://www.khanacademy.org/" target="_blank" rel="noopener"><span class="li"><span class="material-icons">school</span></span><span><span class="lt">Khan Academy</span><br><span class="lu">khanacademy.org</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://www.khanmigo.ai/pricing" target="_blank" rel="noopener"><span class="li"><span class="material-icons">support_agent</span></span><span><span class="lt">Khanmigo — AI tutor &amp; pricing ($4/mo parents)</span><br><span class="lu">khanmigo.ai/pricing</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://www.varsitytutors.com/schools/live-ai" target="_blank" rel="noopener"><span class="li"><span class="material-icons">groups</span></span><span><span class="lt">Varsity Tutors — Live + AI™</span><br><span class="lu">varsitytutors.com/schools/live-ai</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://www.mathnasium.com/mathnasium-method" target="_blank" rel="noopener"><span class="li"><span class="material-icons">calculate</span></span><span><span class="lt">Mathnasium Method™</span><br><span class="lu">mathnasium.com/mathnasium-method</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://www.ixl.com/diagnostic-hub" target="_blank" rel="noopener"><span class="li"><span class="material-icons">insights</span></span><span><span class="lt">IXL Real-Time Diagnostic</span><br><span class="lu">ixl.com/diagnostic-hub</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://www.kumon.com/kumon-connect" target="_blank" rel="noopener"><span class="li"><span class="material-icons">link</span></span><span><span class="lt">Kumon Connect (parent reporting)</span><br><span class="lu">kumon.com/kumon-connect</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">This business</div>
+        <div class="link-grid">
+          <a class="link-row" href="https://www.otspaces.com" target="_blank" rel="noopener"><span class="li"><span class="material-icons">storefront</span></span><span><span class="lt">OT Spaces (current Wix site)</span><br><span class="lu">otspaces.com</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+          <a class="link-row" href="https://www.wix.com" target="_blank" rel="noopener"><span class="li"><span class="material-icons">web</span></span><span><span class="lt">Wix (keep &amp; tune the form)</span><br><span class="lu">wix.com</span></span><span class="lx"><span class="material-icons">open_in_new</span></span></a>
+        </div>
+        <p class="footnote">Links verified June 2026. Product pages and prices change — confirm before relying on a specific figure.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  const navItems = document.querySelectorAll('.nav-item');
+  const panels = document.querySelectorAll('.panel');
+  function show(id) {
+    panels.forEach(p => p.classList.toggle('active', p.id === id));
+    navItems.forEach(n => n.classList.toggle('active', n.dataset.panel === id));
+    document.querySelector('.main').scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  navItems.forEach(n => n.addEventListener('click', () => show(n.dataset.panel)));
+  document.querySelectorAll('[data-goto]').forEach(c => c.addEventListener('click', () => show(c.dataset.goto)));
+</script>
+</body>
+</html>
