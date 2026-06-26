@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Thinking Space — Math &amp; physics, without the clock</title>
+<meta name="description" content="Unlimited, in-person 1-on-1 math & physics tutoring in Dublin, CA. Drop in and stay as long as it takes to truly understand. Founded by UC Berkeley math & physics grads.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FAF9F5; --cream:#F1ECE3; --cream-2:#EDE7DC; --card:#FFFFFF;
+    --ink:#191613; --ink-soft:#5E574D; --ink-mute:#928A7C; --line:#E6E0D5;
+    --coral:#CC785C; --coral-deep:#B0573B; --coral-soft:#F6E7DF;
+    --sage:#5B7561; --sage-soft:#E7EDE6;
+    --display:'Fraunces',Georgia,serif; --body:'Hanken Grotesk',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+    --shadow:0 1px 2px rgba(25,22,19,.04), 0 12px 32px rgba(25,22,19,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--ivory);color:var(--ink);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.08;letter-spacing:-.01em}
+  .serif-i{font-style:italic;font-weight:500}
+
+  /* concept ribbon */
+  .ribbon{background:var(--ink);color:#EFE9DD;font-size:12.5px;letter-spacing:.02em;text-align:center;padding:8px 16px}
+  .ribbon b{color:var(--coral)}
+
+  /* nav */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(250,249,245,.82);backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;gap:28px;height:68px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.01em}
+  .brand .dot{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 32% 30%,var(--coral),var(--coral-deep));box-shadow:inset 0 0 0 4px rgba(255,255,255,.35)}
+  .nav .links{display:flex;gap:26px;margin-left:auto;font-size:15px;color:var(--ink-soft)}
+  .nav .links a:hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:11px 18px;border-radius:999px;transition:transform .15s,box-shadow .15s,background .15s;cursor:pointer;white-space:nowrap}
+  .btn-primary{background:var(--coral);color:#fff;border:1px solid var(--coral)}
+  .btn-primary:hover{background:var(--coral-deep);border-color:var(--coral-deep);transform:translateY(-1px);box-shadow:0 8px 20px rgba(176,87,59,.28)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--ink);background:#fff}
+  .nav .btn{margin-left:4px}
+  @media(max-width:860px){.nav .links{display:none}}
+
+  /* hero */
+  .hero{padding:74px 0 30px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:
+     radial-gradient(60% 50% at 80% -5%,rgba(204,120,92,.10),transparent 70%),
+     radial-gradient(50% 45% at 0% 10%,rgba(91,117,97,.08),transparent 70%);pointer-events:none}
+  .hero .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--coral-deep);background:var(--coral-soft);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+  .hero h1{font-size:clamp(40px,5.4vw,66px);margin-bottom:20px}
+  .hero h1 em{font-style:italic;color:var(--coral-deep)}
+  .hero .sub{font-size:19px;color:var(--ink-soft);max-width:30em;margin-bottom:30px}
+  .hero .cta{display:flex;gap:13px;flex-wrap:wrap}
+  .hero .micro{margin-top:20px;font-size:14px;color:var(--ink-mute);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .micro span{display:inline-flex;align-items:center;gap:6px}
+  .hero .micro b{color:var(--ink);font-weight:600}
+
+  /* whiteboard demo (the "product") */
+  .demo{background:#211D18;border-radius:18px;padding:14px;box-shadow:0 30px 60px rgba(25,22,19,.22);border:1px solid #2e2820}
+  .demo .bar{display:flex;align-items:center;gap:7px;padding:6px 8px 12px}
+  .demo .bar i{width:11px;height:11px;border-radius:50%;background:#48413a;display:inline-block}
+  .demo .bar .ttl{margin-left:10px;font-family:var(--mono);font-size:12px;color:#9c9183}
+  .demo .scr{background:#F7F4EE;border-radius:11px;padding:20px 20px 16px}
+  .demo .ln{font-size:14.5px;line-height:1.5;margin-bottom:13px;display:flex;gap:10px}
+  .demo .who{font-family:var(--mono);font-size:11px;font-weight:500;padding:2px 7px;border-radius:5px;height:fit-content;white-space:nowrap;margin-top:2px}
+  .who.s{background:var(--sage-soft);color:var(--sage)}
+  .who.t{background:var(--coral-soft);color:var(--coral-deep)}
+  .demo .msg{color:var(--ink)}
+  .demo .msg.muted{color:var(--ink-soft)}
+  .demo .eq{font-family:var(--mono);font-size:13px;background:#fff;border:1px solid var(--line);border-radius:7px;padding:7px 10px;display:inline-block;margin-top:3px;color:var(--coral-deep)}
+  .demo .foot{margin-top:6px;padding-top:13px;border-top:1px dashed #E6E0D5;font-size:12.5px;color:var(--ink-mute);display:flex;align-items:center;gap:7px}
+  .demo .pulse{width:8px;height:8px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 0 rgba(91,117,97,.5);animation:pulse 2.2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(91,117,97,.5)}70%{box-shadow:0 0 0 9px rgba(91,117,97,0)}100%{box-shadow:0 0 0 0 rgba(91,117,97,0)}}
+  @media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:36px}.hero{padding:48px 0 10px}}
+
+  /* trust strip */
+  .trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ivory);margin-top:46px}
+  .trust .wrap{display:flex;gap:38px;flex-wrap:wrap;justify-content:center;padding:20px 28px;font-size:14.5px;color:var(--ink-soft)}
+  .trust b{color:var(--ink);font-family:var(--display);font-weight:600}
+
+  /* sections */
+  section{padding:86px 0}
+  .sec-head{max-width:34em;margin-bottom:46px}
+  .sec-head .kick{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-deep);margin-bottom:14px}
+  .sec-head h2{font-size:clamp(30px,3.6vw,44px);margin-bottom:14px}
+  .sec-head p{font-size:18px;color:var(--ink-soft)}
+  .alt{background:var(--cream)}
+
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .feature{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;box-shadow:var(--shadow)}
+  .feature .ic{width:46px;height:46px;border-radius:12px;background:var(--coral-soft);color:var(--coral-deep);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:22px;font-weight:600;margin-bottom:18px}
+  .feature h3{font-size:22px;margin-bottom:9px}
+  .feature p{font-size:15.5px;color:var(--ink-soft)}
+  @media(max-width:860px){.grid-3{grid-template-columns:1fr}}
+
+  /* method flow */
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px}
+  .fstep{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .fstep .n{font-family:var(--mono);font-size:12px;color:var(--coral-deep);font-weight:500;letter-spacing:.05em}
+  .fstep h4{font-family:var(--display);font-size:20px;font-weight:600;margin:5px 0 6px}
+  .fstep p{font-size:14px;color:var(--ink-soft)}
+  .fstep:not(:last-child)::after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);color:var(--coral);font-weight:700;z-index:2}
+  @media(max-width:860px){.flow{grid-template-columns:1fr 1fr}.fstep:nth-child(2)::after,.fstep:not(:last-child)::after{content:""}}
+
+  .report{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+  .report .note{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+  .report .note .top{background:var(--cream-2);padding:11px 18px;font-size:12.5px;color:var(--ink-soft);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+  .report .note .body{padding:22px 24px}
+  .report .note .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--coral-deep);background:var(--coral-soft);padding:3px 9px;border-radius:5px;margin-bottom:10px}
+  .report .note h5{font-family:var(--display);font-size:19px;font-weight:600;margin-bottom:3px}
+  .report .note .meta{font-size:12.5px;color:var(--ink-mute);margin-bottom:14px}
+  .report .note p{font-size:14.5px;margin-bottom:9px}
+  .report .note .dis{font-size:12px;color:var(--ink-mute);border-top:1px solid var(--line);padding-top:11px;margin-top:13px}
+  @media(max-width:860px){.report{grid-template-columns:1fr}}
+
+  /* programs */
+  .progs{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .prog{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:32px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .prog .lab{font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--coral-deep);margin-bottom:10px}
+  .prog h3{font-size:26px;margin-bottom:10px}
+  .prog p{color:var(--ink-soft);font-size:15.5px;margin-bottom:18px}
+  .prog ul{list-style:none;display:flex;flex-direction:column;gap:9px;font-size:15px;margin-bottom:22px}
+  .prog li{display:flex;gap:10px}.prog li::before{content:"✓";color:var(--sage);font-weight:700}
+  @media(max-width:860px){.progs{grid-template-columns:1fr}}
+
+  /* human+AI band */
+  .band{background:var(--ink);color:#F1ECE3}
+  .band .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
+  .band h2{font-size:clamp(28px,3.4vw,40px);color:#fff;margin-bottom:16px}
+  .band h2 em{font-style:italic;color:var(--coral)}
+  .band p{color:#C8C0B2;font-size:17px;margin-bottom:14px}
+  .band .priv{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:22px 24px}
+  .band .priv .h{display:flex;align-items:center;gap:9px;font-weight:600;margin-bottom:10px;color:#fff}
+  .band .priv .h .d{width:9px;height:9px;border-radius:50%;background:var(--sage)}
+  .band .priv ul{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:14.5px;color:#C8C0B2}
+  .band .priv li::before{content:"—  ";color:var(--coral)}
+  @media(max-width:860px){.band .wrap{grid-template-columns:1fr;gap:28px}}
+
+  /* testimonials */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .q{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:var(--shadow)}
+  .q .stars{color:var(--coral);letter-spacing:2px;margin-bottom:12px;font-size:14px}
+  .q p{font-size:15.5px;margin-bottom:16px}
+  .q .by{font-size:13.5px;color:var(--ink-mute)}.q .by b{color:var(--ink);font-weight:600}
+  @media(max-width:860px){.quotes{grid-template-columns:1fr}}
+
+  /* big CTA */
+  .cta-band{background:linear-gradient(160deg,var(--coral),var(--coral-deep));color:#fff;text-align:center}
+  .cta-band h2{font-size:clamp(30px,4vw,48px);color:#fff;margin-bottom:14px}
+  .cta-band p{font-size:18px;color:#FCEDE6;max-width:30em;margin:0 auto 28px}
+  .cta-band .btn-white{background:#fff;color:var(--coral-deep);border:1px solid #fff}
+  .cta-band .btn-white:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+  .cta-band .ph{margin-top:18px;font-size:15px;color:#FCEDE6}
+
+  /* footer */
+  footer{background:var(--ivory);border-top:1px solid var(--line);padding:48px 0 40px;font-size:14.5px;color:var(--ink-soft)}
+  footer .wrap{display:flex;gap:40px;flex-wrap:wrap;justify-content:space-between}
+  footer .brand{font-size:18px;margin-bottom:10px}
+  footer a:hover{color:var(--coral-deep)}
+  footer .col h6{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px;font-weight:600}
+  footer .col p,footer .col a{display:block;margin-bottom:6px}
+  .fine{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;font-size:12.5px;color:var(--ink-mute)}
+
+  /* safe scroll reveal: visible by default; JS only enhances */
+  .rev{opacity:1}
+  .js .rev{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .js .rev.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.js .rev{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="ribbon">Design concept for <b>Open Thinking Space</b> — built by QbitLoop to show what's possible. Not the live site.</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="dot"></span> Open Thinking Space</a>
+    <nav class="links">
+      <a href="#why">Why us</a>
+      <a href="#method">The Method</a>
+      <a href="#programs">Programs</a>
+      <a href="#trust">For parents</a>
+    </nav>
+    <a class="btn btn-primary" href="#book">Book a free consult</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">In-person · Dublin, CA</span>
+        <h1>Math &amp; physics, <em>without the clock.</em></h1>
+        <p class="sub">Unlimited, one-on-one help where students drop in and stay as long as it takes to <em class="serif-i">truly</em> understand — no time slots, no rushing, no anxiety. Founded by UC Berkeley math &amp; physics grads.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#book">Book a free consult</a>
+          <a class="btn btn-ghost" href="#method">See how it works</a>
+        </div>
+        <div class="micro">
+          <span><b>~1,000</b> students taught</span>
+          <span><b>Grades 1–12</b> + college / AP</span>
+          <span><b>Drop-in</b> · no time limits</span>
+        </div>
+      </div>
+
+      <!-- the "product" = a Socratic session -->
+      <div class="demo rev">
+        <div class="bar"><i></i><i></i><i></i><span class="ttl">open-thinking · live session</span></div>
+        <div class="scr">
+          <div class="ln"><span class="who s">Student</span><span class="msg">I'm stuck — the balloon's radius grows at 2 cm/s, how fast is the volume changing?</span></div>
+          <div class="ln"><span class="who t">Tutor</span><span class="msg muted">Good one. Before any formula — what's <em>changing</em>, and what do we actually want to find?</span></div>
+          <div class="ln"><span class="who s">Student</span><span class="msg">The radius is changing… we want how fast the volume changes.</span></div>
+          <div class="ln"><span class="who t">Tutor</span><span class="msg muted">Exactly. So which equation links volume to radius?<br><span class="eq">V = 4⁄3 · π · r³</span></span></div>
+          <div class="ln"><span class="who s">Student</span><span class="msg">Oh — I differentiate both sides with respect to time.</span></div>
+          <div class="foot"><span class="pulse"></span> No timer. Stay as long as it takes.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust">
+    <div class="wrap">
+      <span>Founded by <b>UC Berkeley</b> math &amp; physics grads</span>
+      <span><b>~1,000</b> students taught</span>
+      <span>Learning differences &amp; <b>autism</b> welcome</span>
+      <span><b>Dublin, CA</b> — 6850 Regional St, Ste 200</span>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <section id="why">
+    <div class="wrap">
+      <div class="sec-head rev">
+        <div class="kick">Why we're different</div>
+        <h2>A space where everyone can openly think.</h2>
+        <p>Most tutoring sells you a 50-minute slot and a stopwatch. We sell understanding — and we don't stop until it clicks.</p>
+      </div>
+      <div class="grid-3">
+        <div class="feature rev"><div class="ic">∞</div><h3>Unlimited time</h3><p>Drop in and stay as long as you need. No watching the clock, no "we're out of time" right when it's getting clear.</p></div>
+        <div class="feature rev"><div class="ic">∿</div><h3>Real understanding</h3><p>We build the <em>why</em> behind the math and physics — reasoning it out together — not memorizing formulas you'll forget by the test.</p></div>
+        <div class="feature rev"><div class="ic">◎</div><h3>One-on-one, in person</h3><p>A real teacher, in the room, focused entirely on your student — patient with every question, at any level, from pre-algebra to differential equations.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METHOD -->
+  <section id="method" class="alt">
+    <div class="wrap">
+      <div class="sec-head rev">
+        <div class="kick">The Open Thinking Method</div>
+        <h2>Four steps from stuck to mastery.</h2>
+        <p>A simple, repeatable path — and parents see the progress at every step.</p>
+      </div>
+      <div class="flow rev">
+        <div class="fstep"><div class="n">01</div><h4>Diagnose</h4><p>A short session to find exactly where your student is — and where the gaps really are.</p></div>
+        <div class="fstep"><div class="n">02</div><h4>Plan</h4><p>A clear plan built around their goal, from AP exam to "finally get it."</p></div>
+        <div class="fstep"><div class="n">03</div><h4>Think it through</h4><p>Unlimited, guided practice. We ask the questions that build independent thinkers.</p></div>
+        <div class="fstep"><div class="n">04</div><h4>Report</h4><p>A short, honest progress note to you — so you always know how it's going.</p></div>
+      </div>
+
+      <div class="report rev">
+        <div>
+          <h3 style="font-size:26px;margin-bottom:12px">You'll actually know how your child is doing.</h3>
+          <p style="color:var(--ink-soft)">After sessions you get a clear, friendly progress note — what they worked on, what clicked, and what's next. No mystery, no "fine, I guess." Just real visibility most tutors never give you.</p>
+        </div>
+        <div class="note">
+          <div class="top">✉ From Open Thinking Space · to a parent · weekly update</div>
+          <div class="body">
+            <span class="tag">The Open Thinking Method</span>
+            <h5>Sara — Calculus, week of June 22</h5>
+            <div class="meta">2 drop-in sessions · ~3.5 hrs · Goal: AP Calc AB readiness</div>
+            <p><b>This week:</b> Sara worked through related-rates problems and now sets up the equation on her own — a real step up.</p>
+            <p><b>Growing:</b> turning word problems into the right setup. We slowed down and reasoned each one out together.</p>
+            <p><b>Next:</b> a short guided practice set — we'll review it Thursday.</p>
+            <div class="dis">Drafted with AI from the teacher's notes, reviewed &amp; sent by a real teacher. Your child's full name is never shared with any AI tool.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section id="programs">
+    <div class="wrap">
+      <div class="sec-head rev">
+        <div class="kick">Programs</div>
+        <h2>Two ways to learn with us.</h2>
+      </div>
+      <div class="progs">
+        <div class="prog rev">
+          <div class="lab">Most popular</div>
+          <h3>Unlimited 1-on-1 Tutoring</h3>
+          <p>Drop in by appointment and get one-on-one help for as long as you need — math &amp; physics, any level.</p>
+          <ul>
+            <li>Pre-algebra → Calculus III, Linear Algebra, Diff Eq, Statistics</li>
+            <li>High school &amp; AP Physics through college sequences</li>
+            <li>No time limits — understanding sets the pace</li>
+          </ul>
+          <a class="btn btn-primary" href="#book">Book a free consult</a>
+        </div>
+        <div class="prog rev">
+          <div class="lab">Term-based</div>
+          <h3>Classes</h3>
+          <p>Small, structured group courses across the school year — grades 1–12 plus college &amp; AP.</p>
+          <ul>
+            <li>Summer, Fall &amp; Spring terms</li>
+            <li>Elementary math → AP Calc BC, AP Stats, Physics C</li>
+            <li>Built on real understanding, not memorizing</li>
+          </ul>
+          <a class="btn btn-ghost" href="#book">See class schedule</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HUMAN + AI -->
+  <section id="trust" class="band">
+    <div class="wrap">
+      <div class="rev">
+        <h2>A real teacher teaches. <em>AI just does the paperwork.</em></h2>
+        <p>We use AI behind the scenes — to draft your progress notes and handle scheduling — so your teacher spends more time with your child, not less. The teaching is always human. The AI never sees your child's full name.</p>
+        <p style="color:#9a9285;font-size:15px">Guided, never just handed the answer — the same way we've always taught.</p>
+      </div>
+      <div class="priv rev">
+        <div class="h"><span class="d"></span> How we protect your child's information</div>
+        <ul>
+          <li>Records stay in our own private, controlled accounts</li>
+          <li>Each family only ever sees their own child's reports</li>
+          <li>AI works with code-names, never your child's identity</li>
+          <li>Nothing reaches you until a real teacher has reviewed it</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head rev">
+        <div class="kick">Parents &amp; students</div>
+        <h2>What it feels like to finally get it.</h2>
+        <p style="color:var(--ink-mute);font-size:15px">Sample quotes — placeholders for this concept.</p>
+      </div>
+      <div class="quotes">
+        <div class="q rev"><div class="stars">★★★★★</div><p>"The no-time-limit thing changed everything. My son stopped dreading math because no one was rushing him."</p><div class="by"><b>Priya</b> · parent, Dublin</div></div>
+        <div class="q rev"><div class="stars">★★★★★</div><p>"I actually understand physics now instead of memorizing it. They make you think it through yourself."</p><div class="by"><b>Marcus</b> · AP Physics student</div></div>
+        <div class="q rev"><div class="stars">★★★★★</div><p>"The weekly notes are gold. For the first time I know exactly how my daughter is progressing."</p><div class="by"><b>Elena</b> · parent</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="book" class="cta-band">
+    <div class="wrap rev">
+      <h2>Come think with us.</h2>
+      <p>Book a free consult and we'll find exactly where your student is — and build the plan to get them where they want to be.</p>
+      <a class="btn btn-white" href="tel:+19254008430">Book a free consult</a>
+      <div class="ph">Call or text <b>(925) 400-8430</b> · hi@otspaces.com</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="col" style="max-width:280px">
+      <div class="brand"><span class="dot" style="display:inline-block;vertical-align:middle"></span> Open Thinking Space</div>
+      <p>In-person math &amp; physics tutoring where students stay as long as it takes to understand.</p>
+    </div>
+    <div class="col"><h6>Visit</h6><p>6850 Regional St, Suite 200<br>Dublin, CA 94568</p></div>
+    <div class="col"><h6>Contact</h6><a href="tel:+19254008430">(925) 400-8430</a><a href="mailto:hi@otspaces.com">hi@otspaces.com</a></div>
+    <div class="col"><h6>Programs</h6><a href="#programs">Unlimited tutoring</a><a href="#programs">Classes</a><a href="#method">The Method</a></div>
+  </div>
+  <div class="wrap fine">Design concept by <a href="https://tutor.qbitloop.com" style="color:var(--coral-deep)">QbitLoop</a> for Open Thinking Space · June 2026. Testimonials &amp; some details are placeholders for demonstration.</div>
+</footer>
+
+<script>
+  document.documentElement.classList.add('js');
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+  // failsafe: if observer never fires, reveal everything after 1.2s
+  setTimeout(()=>document.querySelectorAll('.rev:not(.in)').forEach(el=>el.classList.add('in')),1200);
+</script>
+</body>
+</html>
