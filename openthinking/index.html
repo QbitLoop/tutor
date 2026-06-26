@@ -100,6 +100,20 @@
   .feature p{font-size:15.5px;color:var(--ink-soft)}
   @media(max-width:860px){.grid-3{grid-template-columns:1fr}}
 
+  /* "what we took out" — the no-tests/no-homework block */
+  .nothing{margin-top:26px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,var(--cream));border-radius:18px;padding:32px 34px;box-shadow:var(--shadow)}
+  .nothing .nh{display:flex;align-items:center;gap:13px;margin-bottom:24px}
+  .nothing .nh .ms{color:var(--coral-deep);font-size:30px}
+  .nothing .nh h3{font-size:25px}
+  .nothing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .nothing-grid>div{display:flex;flex-direction:column;gap:4px;padding-left:16px;border-left:2px solid var(--coral)}
+  .nothing-grid b{font-family:var(--display);font-size:20px;font-weight:600}
+  .nothing-grid span{font-size:14.5px;color:var(--ink-soft)}
+  .nothing .room{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);font-size:15.5px;color:var(--ink-soft);display:flex;align-items:flex-start;gap:10px}
+  .nothing .room .ms{color:var(--coral-deep);font-size:21px;margin-top:1px}
+  .nothing .room b{color:var(--ink);font-weight:600}
+  @media(max-width:860px){.nothing-grid{grid-template-columns:1fr;gap:16px}.nothing{padding:26px 24px}}
+
   /* method flow */
   .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px}
   .fstep{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
@@ -297,6 +311,16 @@
         <div class="feature rev"><div class="ic"><span class="ms">lightbulb</span></div><h3>Real understanding</h3><p>We build the <em>why</em> behind the math and physics — reasoning it out together — not memorizing formulas you'll forget by the test.</p></div>
         <div class="feature rev"><div class="ic"><span class="ms">groups</span></div><h3>One-on-one, in person</h3><p>A real teacher, in the room, focused entirely on your student — patient with every question, at any level, from pre-algebra to differential equations.</p></div>
       </div>
+
+      <div class="nothing rev">
+        <div class="nh"><span class="ms">do_not_disturb_on</span><h3>We took out everything that gets in the way.</h3></div>
+        <div class="nothing-grid">
+          <div><b>No tests</b><span>We don't grade your child. We grow them.</span></div>
+          <div><b>No homework</b><span>The work happens here, with a teacher right beside them.</span></div>
+          <div><b>No clock</b><span>Stay five minutes or five hours — understanding sets the pace.</span></div>
+        </div>
+        <p class="room"><span class="ms">edit_square</span> <span>A calm room built for thinking — <b>standing desks, wall-sized whiteboards,</b> and space to move while you reason a problem out loud. No pressure, no rush, just room to learn.</span></p>
+      </div>
     </div>
   </section>
 
@@ -486,17 +510,23 @@
               <span class="err">Please add a first name.</span>
             </div>
           </div>
-          <div class="field" data-required>
-            <label>Grade level <span class="req">*</span></label>
-            <select name="grade">
-              <option value="" selected disabled>Select a grade…</option>
-              <option>Grades 1–5 (Elementary)</option>
-              <option>Grades 6–8 (Middle school)</option>
-              <option>Grades 9–12 (High school)</option>
-              <option>AP course</option>
-              <option>College</option>
-            </select>
-            <span class="err">Please choose a grade level.</span>
+          <div class="frow">
+            <div class="field" data-required>
+              <label>Grade level <span class="req">*</span></label>
+              <select name="grade">
+                <option value="" selected disabled>Select a grade…</option>
+                <option>Grades 1–5 (Elementary)</option>
+                <option>Grades 6–8 (Middle school)</option>
+                <option>Grades 9–12 (High school)</option>
+                <option>AP course</option>
+                <option>College</option>
+              </select>
+              <span class="err">Please choose a grade level.</span>
+            </div>
+            <div class="field">
+              <label>School <span style="color:var(--ink-mute);font-weight:400">(optional)</span></label>
+              <input type="text" name="school" placeholder="Student's school">
+            </div>
           </div>
           <div class="field">
             <label>Subject(s)</label>
