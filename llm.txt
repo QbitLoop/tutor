@@ -167,6 +167,25 @@ A. GOOGLE DRIVE STRUCTURE
      /Admin/  roster.gsheet · consent-template.gdoc · email-templates.gdoc
      /Marketing/  newsletter-drafts/ · class-calendar.gsheet
 
+   DATA SEPARATION — one Google account, many students kept apart (no account per
+   student needed). Separation is STRUCTURAL = folders + per-folder sharing:
+     - One folder per student. Share THAT one folder (or a single report) with THAT
+       one parent's email only. Google's per-folder permissions mean Parent A cannot
+       see Parent B's folder. Default = private; grant access one student at a time.
+     - The master roster.gsheet (real names, phones, notes) is NEVER shared — parents
+       only ever receive their own child's report (emailed or a single shared folder).
+     - Code-names do the AI separation: anything touching AI uses "S-014", not the real
+       name. The name↔code mapping lives in the one roster column only Taha sees, so the
+       AI never holds a roster of real kids.
+     - No student/parent needs a Google login — they just get an email or a shared link.
+   Model: one account = the owner's vault; folders + per-folder sharing = the walls
+   between students. Only if staff must see SOME students later does Google Workspace
+   Business (shared drives, granular roles, ~$7/user/mo) become worth it.
+   When you (the AI) build this: set each student folder's sharing to "Restricted",
+   add only the specific parent email with Viewer access, and NEVER set a student folder
+   or the roster to "Anyone with the link". Confirm sharing scope with Taha before
+   sharing anything externally.
+
 B. ROSTER SHEET (single source of truth) — tab "Students", columns:
    StudentCode | FirstName(private) | ParentName | ParentEmail | ParentPhone |
    Grade | Subjects | Goal | Status(lead/active/paused/alum) | Source | EnrolledDate |
