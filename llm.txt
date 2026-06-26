@@ -38,12 +38,36 @@ NON-NEGOTIABLE: minors' data → local + code-names to AI + parental consent.
   paperwork, NOT the drop-in flexibility.
 - Address: 6850 Regional St, Suite 200, Dublin, CA 94568 (CONFIRMED — new office). The
   old "Pleasanton" copy still on the Wix site is stale; flag Taha to correct it.
-- Team: Taha Rizvi (founder/lead, UC Berkeley math+physics — the operator) + Doug
-  Potter. Hiring teachers.
-- Funnel today (manual): phone/text (925) 400-8430 · hi@otspaces.com · thin Wix form
-  (subjects-only).
+- Team: Taha Rizvi (founder/lead, UC Berkeley Math + Physics — the operator) + Doug
+  Potter (UC Berkeley Physics + Geophysics). Actively hiring teachers.
+- Funnel today (manual): phone/text (925) 400-8430 · hi@otspaces.com · Wix contact
+  form (real fields: Student name · Parent name · Email · Phone · School name · Grade ·
+  Subjects[Math Tutoring/Physics Tutoring/Classes] · Questions) + a "math tips / class
+  openings" Wix newsletter signup.
 - Stack today: Wix + Wix Forms + Wix newsletter. Nothing else.
 - Market includes students with learning differences, autism (homeschool), veterans.
+
+MORE FACTS captured from the otspaces.com deep scrape + page screenshots (June 26) —
+use these to make the new site truthful and to feed the audit (§4.G):
+- TEACHING PILLARS (their words): "Concept First, Not Memorization" · "Interactive and
+  Stress-Free" · "Learning Habits That Last." Explicit selling points to surface:
+  NO TESTS, NO HOMEWORK, no rushed explanations; standing desks + large whiteboards;
+  "we focus on mental health"; "no time limits — learn at your pace."
+- ORIGIN STORY: founders met at UC Berkeley, found tutoring centers time-restricted →
+  pressure/anxiety → opened a place where students "stay as long as they need." Name =
+  "a space where everyone could openly think" → Open Thinking Space.
+- FULL CATALOG EXISTS on site — Math: Pre-Algebra→Algebra I/II, Geometry, Trig,
+  Precalc, AP Calc AB/BC, AP Stats, Calc I/II/III, Differential Equations, Linear
+  Algebra, Discrete Math, Stats & Probability. Physics: HS Physics, AP Physics 1/2,
+  AP Physics C (Mech / E&M), College Physics I–IV (Mech / Thermo / E&M / Modern).
+- CLASS SCHEDULE EXISTS — termed (Summer Jul 6–Aug 16 · Fall Aug 17–Dec 23 · Spring
+  Jan 10–Jun 3) with timed slots across Mon/Wed, Tue/Thu, Sun; some "Accelerated"
+  (two courses in one year, marked *). Confirm currency before publishing.
+- CAREERS PAGE: actively hiring; application form asks Subjects incl. Chemistry,
+  Biology, Computer Science (alongside Math/Physics) → POSSIBLE EXPANSION SIGNAL beyond
+  math & physics. CONFIRM with Taha (changes positioning) — do NOT assume.
+- STALE COPY: site still says "downtown Pleasanton, beside the library." Now Dublin.
+  Either give Dublin an equivalent neighborhood story or drop the amenity angle.
 
 ================================================================================
 ## 2. LOCKED DECISIONS (don't relitigate without Taha)
@@ -114,6 +138,30 @@ F. GOALS & GUARDRAILS
   18. What does success look like 90 days from now?
   19. What tools do you already pay for (Google? Wix plan? anything else)?
   20. Anything you do NOT want automated or touched?
+
+G. WEBSITE COMPLETENESS — AUDIT vs the current otspaces.com (ask these to make sure the
+   new site concept at tutor.qbitloop.com/openthinking is truthful and complete; each
+   maps to a real gap found in the June-26 scrape, §1 "MORE FACTS"):
+  21. Your site says "no tests, no homework, no rushed explanations." Still true? OK to
+      put it front-and-center? (It's a sharper differentiator than what's on the concept.)
+  22. The room — standing desks, big whiteboards, learn-at-your-pace. Is that the vibe to
+      show, and can you give me REAL photos of the space/team? (Concept is photo-free
+      until you do.)
+  23. Lead with the mental-health / no-anxiety angle, or keep it secondary to academics?
+  24. Dublin neighborhood story to replace the old "beside the Pleasanton library" copy,
+      or drop the amenity angle?
+  25. Want the FULL course catalog + the live class schedule (with timeslots) on the new
+      site, or keep programs high-level? Is the current term's schedule up to date?
+  26. What are the "Accelerated (two-in-one-year)" courses — how should we describe them?
+  27. PRICING: per visit / monthly / per term? Can we show "starting at $X," or stay
+      consult-only? (Biggest conversion lever; nothing on either site shows price.)
+  28. Include Doug Potter (and any other teachers) on the new site? Want a "Teach with us"
+      hiring section + application form (you have one on Wix today)?
+  29. Your careers form lists Chemistry, Biology, Computer Science. Expanding beyond math
+      & physics? (Materially changes positioning — confirm before we imply anything.)
+  30. Should the new inquiry form mirror your real Wix fields (add Student name + School
+      name) and feed the SAME destination? Where do submissions go today, who replies,
+      how fast? Keep the newsletter — Wix or Google?
 
 After the interview: summarize back what you heard, confirm the FIRST workflow to
 build, and update the roster/spec defaults in §6 to match Taha's real numbers/terms.
@@ -193,11 +241,15 @@ B. ROSTER SHEET (single source of truth) — tab "Students", columns:
    Tab "Leads": Timestamp | ParentName | StudentFirst | Grade | Subjects | Goal |
    Availability | Email | Phone | Status(new/replied/consult/won/lost) | ReplySent(Y/N)
 
-C. WIX CONTACT FORM — fields to add:
-   Parent name · Student first name · Grade · Subjects (checkbox: Math/Physics/Classes)
-   · Goal (short text) · Availability · Email · Phone · Consent checkbox ("I agree to
-   record-keeping & AI-assisted communication about my child"). On submit → append a
-   row to the Leads tab.
+C. WIX CONTACT FORM — keep the real fields it already has, add the missing ones:
+   ALREADY ON THE FORM: Student name · Parent name · Email · Phone · School name ·
+   Grade · Subjects (Math Tutoring / Physics Tutoring / Classes) · Questions.
+   ADD: Goal (short text) · Availability (best days/times) · Consent checkbox ("I agree
+   to record-keeping & AI-assisted communication about my child").
+   PRIVACY: store the student's FIRST name only in anything AI touches; keep full
+   name + school in the roster columns only Taha sees. On submit → append a row to the
+   Leads tab. (The tutor.qbitloop.com/openthinking concept form already implements this
+   field set minus School name — align them when wiring the real endpoint.)
 
 D. PARENT PROGRESS NOTE — TEMPLATE (the Phase-1 deliverable):
    Subject: <FirstName> — <Subject>, week of <date>
@@ -310,6 +362,15 @@ P4 (month 3): Marketing loop + a written runbook so Taha fully owns it.
 [ ] OK to name the method + show a sample report on the public site?
 [ ] Comfortable with consent + code-name privacy approach?
 [ ] Real numbers: active students, leads/week, current payment method?
+--- website-completeness (from the June-26 scrape; details in §4.G) ---
+[ ] PRICING model + can we show "starting at $X" publicly? (biggest conversion lever)
+[ ] Feature "no tests / no homework / standing-desk room / mental-health" angle? Lead or secondary?
+[ ] Publish full catalog + live class schedule, and is the current term up to date?
+[ ] Include Doug Potter + a "Teach with us" hiring section? Expanding beyond math & physics (Chem/Bio/CS on careers form)?
+[ ] Mirror the real Wix form fields (+School name) and feed the same destination? Newsletter stays Wix or moves to Google?
+[ ] REAL PHOTOS of the space/team (must come from Taha) — concept stays photo-free until provided.
+--- Taha's own machine (decides the §13 local setup depth) ---
+[ ] Does Taha have a Mac + comfort with a terminal? Want the local PII guard + daily digest, or stay cloud-only (Claude.ai/Cowork)?
 
 ================================================================================
 ## 12. SETUP + COPY-PASTE PROMPTS FOR TAHA'S NEW CLAUDE SESSION
@@ -353,7 +414,59 @@ and offers a consult link. Explain how to paste and authorize the script."
 "Walk me through expanding my Wix contact form to the fields in §6.C and sending each
 submission into my Leads tab."
 
-PROVENANCE: built from a scrape of otspaces.com + a research pass (Google AI suite,
-Anthropic education offers, Khan/Mathnasium/Varsity benchmarks) + decisions locked with
-the owner, June 2026. Confirm prices/eligibility live before spending. tutor.qbitloop.com
+================================================================================
+## 13. CLAUDE ON TAHA'S OWN MAC — LOCAL SETUP (the privacy-first option)
+================================================================================
+WHY THIS EXISTS: The #1 non-negotiable is minors' PII. The safest place for raw student
+names/grades/notes is Taha's OWN machine, never a cloud prompt. This section adapts a
+proven local pattern (the "JARVIS-OS" Claude Code setup — native Claude Code primitives,
+no third-party agent frameworks, everything plain files Taha can read/edit/version) down
+to exactly what a one-teacher tutoring studio needs. It is OPTIONAL: if Taha doesn't want
+a terminal, use the cloud path (Claude.ai / Cowork, §12) and the same privacy rules apply.
+
+THE IDEA (three pieces, all free, all local):
+  1) PII GUARD (the seatbelt). A local check that runs before anything leaves the Mac,
+     so a real last name + phone/email never lands in a cloud AI prompt. Start in
+     "observe" mode (it logs what it would block) → switch to "enforce" once trusted.
+     Mirrors §3's privacy rule, but mechanically instead of by memory.
+  2) TWO-FOLDER KNOWLEDGE SPLIT (the filing cabinet).
+       - PRIVATE (real data): the roster + per-student folders from §6.A, on the Mac /
+         in Taha's own Google Drive. Holds the name↔code mapping. AI never reads this raw.
+       - SCRATCH (AI workspace): code-named notes ("S-014 — related rates, gaining
+         confidence") the assistant CAN read and draft from. The ONLY bridge from scratch
+         → anything a parent sees is Taha's approval (the §3 "AI proposes, Taha approves"
+         gate). Nothing auto-sends.
+  3) DAILY DIGEST LOOP (optional, the morning brief). A scheduled local job emails Taha
+     the §6.F brief each morning (today's students/classes, who needs a follow-up note,
+     leads with no reply). Local-first; bounded; opt-in. Same output as the Apps Script
+     route in §7.7 — pick whichever Taha prefers to own.
+
+HOW TO STAND IT UP (plain steps for the AI assistant to walk Taha through):
+  a. Install Claude Code on the Mac; open it in a folder named e.g. `OTSpaces-Ops`.
+  b. Save THIS file there as `llm.txt`, plus a `CLAUDE.md` with the one-liner in §12.
+  c. Create the two folders: `private/` (gitignored; roster + real names) and
+     `scratch/` (code-named working notes the AI may read).
+  d. Add a pre-send PII check: before any draft is emailed or pasted to a cloud model,
+     scan it for a real LAST name, phone, or email; if found, stop and ask Taha to swap
+     to the first-name/code-name. (Observe-mode first: just warn + log.)
+  e. Connect Claude's Google connectors (Gmail/Calendar/Drive) ONLY to the business
+     Google account, so the agent drafts from the roster Sheet and writes to Gmail
+     drafts (never auto-send).
+  f. Optional daily digest: a macOS scheduled job runs `claude -p` once each morning to
+     produce the §6.F brief. Keep a wall-clock limit + a spend log so cost can't run away.
+
+GUARDRAILS (carry these into the local setup verbatim):
+  - Raw real names stay in `private/` and in Taha's Google account — never in a prompt.
+  - AI drafts → Gmail DRAFTS, never auto-send. Taha is the only "send" button (§3).
+  - Default to FREE: this whole local path costs only per-use AI tokens (+ optional Pro
+    seat). No servers, no SaaS.
+  - If Taha is not comfortable with a terminal, SKIP this section — the cloud path works
+    and the privacy rules (§3, §9) are identical.
+
+================================================================================
+PROVENANCE: built from a scrape of otspaces.com (+ June-26 deep scrape: catalog,
+schedule, teaching pillars, careers/contact forms, teachers) + a research pass (Google AI
+suite, Anthropic education offers, Khan/Mathnasium/Varsity benchmarks) + the local-setup
+pattern from the JARVIS-OS Claude Code system + decisions locked with the owner, June
+2026. Confirm prices/eligibility live before spending. tutor.qbitloop.com
 ================================================================================
