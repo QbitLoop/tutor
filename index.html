@@ -126,6 +126,10 @@
   .report-mock .rm-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent-dark); background: var(--accent-light); padding: 2px 8px; border-radius: 4px; }
   .rm-cap { font-size: 11.5px; color: var(--text-muted); font-style: italic; margin-top: 8px; }
 
+  /* ── TREE / STRUCTURE BLOCK ── */
+  .tree { background: #0F1F21; color: #D7E0DF; font-family: var(--mono); font-size: 12.5px; line-height: 1.7; padding: 18px 22px; border-radius: 10px; overflow-x: auto; white-space: pre; border: 1px solid #1d3a3d; }
+  .tree .c-acc { color: var(--accent); } .tree .c-dim { color: #8aa3a2; } .tree .c-warn { color: #E6A86B; }
+
   .overview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-top: 20px; }
   .ov-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; cursor: pointer; transition: all 0.15s; }
   .ov-card:hover { border-color: var(--accent); box-shadow: 0 2px 14px rgba(13,118,128,0.12); transform: translateY(-1px); }
@@ -526,6 +530,24 @@
     <!-- ════ PRIVACY ════ -->
     <section class="panel" id="privacy">
       <div class="panel-head"><div class="badge claret">Non-negotiable</div><h2>Student Data &amp; Trust</h2><p class="lede">You teach minors, some with learning differences or autism. The category leaders gate this carefully — Khanmigo and Varsity foreground parental consent, data security &amp; oversight. Done visibly, it's a reason parents choose you.</p></div>
+      <div class="section">
+        <div class="section-title">"But it's all one Google account — how is one student's data kept separate?"</div>
+        <p class="body sec">You don't need a Google account per student. Separation in one account is <strong>structural</strong> — folders + sharing permissions — exactly how any small business keeps many clients apart:</p>
+        <div class="tree"><span class="c-dim">Taha's ONE Google account (private master)</span>
+└── Drive / OT Spaces / Students /
+    ├── <span class="c-acc">S-014-Sara/</span>   intake · plan · notes · reports   <span class="c-dim">→ shared ONLY with Sara's parent</span>
+    ├── <span class="c-acc">S-027-Omar/</span>   his own folder                    <span class="c-dim">→ shared ONLY with Omar's parent</span>
+    └── <span class="c-acc">S-031-Mia/</span>    her own folder                    <span class="c-dim">→ shared ONLY with Mia's parent</span>
+    Admin / <span class="c-warn">roster.gsheet</span>   master list w/ real names    <span class="c-warn">→ NEVER shared · Taha only</span></div>
+        <ul class="body" style="margin-top:14px">
+          <li><strong>One folder per student.</strong> You share <em>that one folder</em> (or a single report) with <em>that one parent's email</em>. Parent A literally cannot see Parent B's folder — Google's per-folder permissions enforce it. Default is private; you grant access one student at a time.</li>
+          <li><strong>The master roster stays private.</strong> The sheet with real names, phones &amp; notes is never shared — parents only ever receive their own child's report (emailed, or a single shared folder).</li>
+          <li><strong>Code-names do the AI separation.</strong> Anything touching AI uses <code style="background:var(--surface-alt);padding:1px 5px;border-radius:3px;font-family:var(--mono);font-size:12px">S-014</code>, not "Sara Khan." The name↔code mapping lives in the one column only Taha sees — so even the AI never holds a roster of real kids.</li>
+          <li><strong>No student or parent needs a Google login</strong> — they just receive an email or open a shared link.</li>
+        </ul>
+        <div class="callout c-teal"><div class="lab"><span class="material-icons">lock</span> The model in one line</div>One account = the owner's vault; <strong>folders + per-folder sharing = the walls between students.</strong> If you later add staff who should see only <em>some</em> students, that's when Google Workspace Business (shared drives, granular roles) earns its ~$7/mo — but for you and Taha today, one account with this structure is plenty.</div>
+      </div>
+
       <div class="section"><div class="section-title">The four rules we build into everything</div><ul class="body">
         <li><strong>Raw data stays private.</strong> Names, contacts &amp; sensitive notes live in OT Spaces' own Google account — never pasted into public AI chats.</li>
         <li><strong>Code-names to the AI.</strong> The assistant drafts with "Student #14," not full identities, wherever possible.</li>
