@@ -44,7 +44,21 @@
   .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
   .btn-ghost:hover{border-color:var(--ink);background:#fff}
   .nav .btn{margin-left:4px}
-  @media(max-width:860px){.nav .links{display:none}}
+  /* mobile nav */
+  .navtoggle{display:none;background:transparent;border:1px solid var(--line);border-radius:11px;width:44px;height:44px;align-items:center;justify-content:center;cursor:pointer;margin-left:auto;color:var(--ink);transition:border-color .15s}
+  .navtoggle:hover{border-color:var(--ink)}
+  .navtoggle .ms{font-size:25px}
+  .mobilemenu{display:none;flex-direction:column;background:var(--ivory);border-top:1px solid var(--line)}
+  .mobilemenu.open{display:flex}
+  .mobilemenu a{padding:16px 28px;font-size:16.5px;color:var(--ink);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:11px}
+  .mobilemenu a .ms{font-size:20px;color:var(--coral-deep)}
+  .mobilemenu a.mm-cta{color:#fff;background:var(--coral);font-weight:600;border-bottom:none;justify-content:center}
+  .mobilemenu a.mm-cta .ms{color:#fff}
+  @media(max-width:860px){
+    .nav .links{display:none}
+    .nav .btn.book-cta{display:none}
+    .navtoggle{display:inline-flex}
+  }
 
   /* hero */
   .hero{padding:74px 0 30px;position:relative;overflow:hidden}
@@ -250,8 +264,16 @@
       <a href="#programs">Programs</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn btn-primary" href="#book"><span class="ms" style="font-size:19px">edit_calendar</span> Book a free consult</a>
+    <a class="btn btn-primary book-cta" href="#book"><span class="ms" style="font-size:19px">edit_calendar</span> Book a free consult</a>
+    <button class="navtoggle" id="navtoggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobilemenu"><span class="ms">menu</span></button>
   </div>
+  <nav class="mobilemenu" id="mobilemenu">
+    <a href="#why"><span class="ms">lightbulb</span> Why us</a>
+    <a href="#method"><span class="ms">route</span> The Method</a>
+    <a href="#programs"><span class="ms">school</span> Programs</a>
+    <a href="#faq"><span class="ms">help</span> FAQ</a>
+    <a href="#book" class="mm-cta"><span class="ms">edit_calendar</span> Book a free consult</a>
+  </nav>
 </header>
 
 <main id="top">
@@ -575,6 +597,19 @@
 
 <script>
   document.documentElement.classList.add('js');
+
+  /* mobile menu toggle */
+  (function(){
+    var t=document.getElementById('navtoggle'), m=document.getElementById('mobilemenu');
+    if(!t||!m) return;
+    function close(){ m.classList.remove('open'); t.setAttribute('aria-expanded','false'); t.querySelector('.ms').textContent='menu'; }
+    t.addEventListener('click',function(){
+      var open=m.classList.toggle('open');
+      t.setAttribute('aria-expanded',open?'true':'false');
+      t.querySelector('.ms').textContent=open?'close':'menu';
+    });
+    m.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',close); });
+  })();
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.rev').forEach(el=>io.observe(el));
   // failsafe: if observer never fires, reveal everything after 1.2s
